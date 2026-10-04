@@ -1,0 +1,187 @@
+--- index.original.html	2026-10-04 02:54:45.046234692 +0000
++++ index.html	2026-10-04 02:55:59.055491602 +0000
+@@ -134,7 +134,7 @@
+ <div class="w nv">
+ <a class="lg" href="#top" aria-label="GharFix home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#FF6B35"/><path d="M6 16 16 7l10 9v9H6z" fill="#fff"/><path d="M13 25v-5a3 3 0 1 1 6 0v5z" fill="#FF6B35"/><circle cx="16" cy="16" r="1.6" fill="#17202A"/></svg>GharFix</a>
+ <nav id="nav" aria-label="Main"><ul>
+-<li><a href="#top">Home</a></li><li><a href="#services">Services</a></li><li><a href="#how">How It Works</a></li><li><a href="#pros">Professionals</a></li><li><a href="#about">About</a></li><li><a href="#" data-t="Login demo page mein available nahi hai">Login</a></li></ul></nav>
++<li><a href="#top">Home</a></li><li><a href="#services">Services</a></li><li><a href="#how">How It Works</a></li><li><a href="#pros">Professionals</a></li><li><a href="#about">About</a></li><li><a href="#" id="lg" data-auth>Login</a></li></ul></nav>
+ <div class="rt"><button class="btn s hb" data-book="">Book a Service</button><button class="bg" id="bg" aria-label="Menu" aria-expanded="false" aria-controls="nav">☰</button></div>
+ </div>
+ </header>
+@@ -256,53 +256,81 @@
+ </form></div>
+ <div class="ok" id="ok" hidden><div class="ic">✓</div><h3 style="font-size:1.35rem">Booking request received!</h3><p class="sub" style="margin:8px auto 4px">A professional will contact you shortly.</p><p class="note" id="sm"></p><button class="btn" data-close>Done</button></div>
+ </div></div>
++<div class="ov" id="am" hidden><div class="mc" role="dialog" aria-modal="true" aria-labelledby="at">
++<button class="x" data-aclose aria-label="Close login form">✕</button>
++<h3 id="at" style="font-size:1.4rem">Login</h3><p class="sub" id="as" style="margin-top:4px"></p>
++<form id="af" novalidate>
++<div id="an" hidden><label>Full Name<input class="in" id="anm" autocomplete="name"></label>
++<label>Phone Number<input class="in" id="aph" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digit mobile number"></label></div>
++<label>Email<input class="in" id="aem" type="email" autocomplete="email"></label>
++<label>Password<input class="in" id="apw" type="password" autocomplete="current-password" placeholder="Min 8 characters, letters + numbers"></label>
++<em id="aerr" role="alert"></em>
++<button class="btn" type="submit" id="ab">Login</button>
++</form>
++<p class="note" style="text-align:center"><button class="lk" id="asw" type="button">Naya account banayein</button></p>
++</div></div>
+ <div id="ts" role="status" aria-live="polite"></div>
+ 
++<script src="gharfix-api.js"></script>
+ <script>
+ (()=>{
+ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+ document.documentElement.classList.add('js');
+ const SV=[["⚡","Electrician","Wiring, switches, fans, MCB & fittings"],["🚰","Plumber","Leakage, taps, pipes & bathroom fittings"],["❄️","AC Repair","Cooling, gas filling, installation & servicing"],["🪚","Carpenter","Furniture, doors, repairs & custom work"],["🔌","Appliance Repair","Microwave, mixer, oven & other appliances"],["💧","RO Repair","Filter change, servicing & leakage fixes"],["🎨","Painter","Interior, exterior & touch-up painting"],["🧺","Washing Machine","Top & front load repair, drain & drum issues"],["📹","CCTV","Camera installation, setup & repair"],["🔥","Geyser","Heating element, thermostat & installation"],["📺","TV Repair","Display, sound & wall-mount help"],["🧊","Refrigerator","Cooling issues, gas & compressor check"],["🔋","Inverter & Battery","Battery check, servicing & replacement"],["🛠️","Home Maintenance","Small fixes around the house in one visit"]];
+-const PR=[{n:"Rajesh Kumar",s:"Electrician",r:4.8,e:8,j:1240,p:299,a:"Available today",l:"Rohini",c:"#FF6B35"},{n:"Imran Ali",s:"AC Repair",r:4.7,e:6,j:860,p:499,a:"Available in 2 hrs",l:"Dwarka",c:"#2563EB"},{n:"Suresh Yadav",s:"Plumber",r:4.9,e:10,j:1530,p:199,a:"Available today",l:"Pitampura",c:"#0F766E"},{n:"Deepak Sharma",s:"Carpenter",r:4.6,e:7,j:640,p:349,a:"Tomorrow, 10 AM",l:"Janakpuri",c:"#7C3AED"}];
++let PR=[];
++const AV={available:"Available today",busy:"Busy right now",offline:"Offline"},COL=["#FF6B35","#2563EB","#0F766E","#7C3AED","#DB2777"];
++const esc=t=>String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const HW=[["📝","Tell us what you need","Service chunein aur kaam ki details batayein."],["👀","See available professionals","Aapke area ke verified professionals dekhein."],["✅","Choose your preferred professional","Rating, experience aur price compare karke chunein."],["🛠️","Get the work done","Professional ghar aakar kaam karega."]];
+ const TK=["Identity Verified","Experience Checked","Customer Reviews","Service History","Transparent Charges"],JK=["More customers","Digital profile","Booking management","Customer reviews","Local visibility"];
+ const PZ=[["Electrician Visit","₹149+","Inspection aur chhote repairs"],["AC Service","₹499+","Jet cleaning aur checkup"],["Plumber Visit","₹199+","Leakage aur tap repair"],["RO Service","₹299+","Filter check aur servicing"]];
+ const RV=[["Neha Verma","Rohini","Electrician same day mil gaya aur kaam bhi properly kiya. Booking process bahut simple tha."],["Amit Chauhan","Dwarka","AC service ka price pehle hi pata tha, koi extra charge nahi laga. Time par aaye."],["Sunita Malhotra","Janakpuri","Plumber ne leakage ek visit mein theek kar di. Professional ki rating dekhkar chunna aasaan tha."]];
+ const FQ=[["Kya professionals verified hain?","Launch ke baad har professional ka ID aur experience check hoga, tabhi profile live hogi. Yeh page ek demo hai."],["Service booking kaise hoti hai?","Service chunein, professional select karein, date aur time bharein aur Confirm Booking dabayein. Professional aapko call karke confirm karega."],["Kya main professional ko choose kar sakta hoon?","Haan. Rating, experience, price aur availability dekhkar aap apna pasandida professional chun sakte hain."],["Price kaise decide hota hai?","Har service ka starting price pehle dikhta hai. Final price actual kaam aur material par depend karta hai, aur kaam shuru hone se pehle bataya jayega."],["Agar kaam properly na ho to?","Aap support se baat karke dobara visit ya solution maang sakte hain. Service guarantee ki details launch par clearly publish hongi."],["Kya emergency service available hai?","Haan, urgent kaam ke liye nearby available professionals dhundhe ja sakte hain. Availability area aur time par depend karti hai."],["Kya professionals apni profile bana sakte hain?","Bilkul. Join as a Professional par click karke apni services aur area bata sakte hain."]];
+ const FT={"Services":["Electrician","Plumber","AC Repair","Carpenter","Appliance Repair"],"Company":["About","How It Works","Careers","Contact"],"For Professionals":["Join as Professional","Partner Login","Help"],"Support":["Help Center","Safety","Terms","Privacy"]};
+-let cur="",all=false,last;
++let cur="",all=false,last,pending=false,total=0;
+ function toast(m){const t=$('#ts');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3200)}
+ function go(id){$(id).scrollIntoView({behavior:'smooth'})}
+ function renderSv(q=""){q=q.trim().toLowerCase();
+ const l=SV.filter((s,i)=>q?(s[1]+" "+s[2]).toLowerCase().includes(q):(all||i<10));
+-$('#sg').innerHTML=l.map(s=>`<button class="card sv" data-svc="${s[1]}"><span class="ic">${s[0]}</span><h3>${s[1]}</h3><p>${s[2]}</p></button>`).join("")||'<p class="sub">Is naam ki service nahi mili. "AC" ya "plumber" jaisa kuch try karein.</p>';
++$('#sg').innerHTML=l.map(s=>`<button class="card sv" data-svc="${esc(s[1])}"><span class="ic">${esc(s[0])}</span><h3>${esc(s[1])}</h3><p>${esc(s[2])}</p></button>`).join("")||'<p class="sub">Is naam ki service nahi mili. "AC" ya "plumber" jaisa kuch try karein.</p>';
+ $('#va').parentElement.hidden=!!q;$('#va').textContent=all?"Show fewer":"View All Services →"}
+-function renderPros(){const f=cur.toLowerCase();let l=PR.filter(p=>!f||p.s.toLowerCase()===f),n="";
+-if(f&&!l.length){l=PR;n=`"${cur}" ke liye abhi demo professional nahi hai, sabhi dikha rahe hain.`}else if(f)n=`${l.length} professional mile: ${cur}`;
+-$('#pn').innerHTML=n?`${n} <button class="lk" data-clr>Clear filter</button>`:"";
+-$('#pg').innerHTML=l.map(p=>`<article class="card pr"><div class="top"><span class="av" style="background:${p.c}">${p.n[0]}</span><div><h3>${p.n}</h3><p class="m">${p.s} · ${p.l}</p></div></div><span class="bd">✓ Verified</span>
+-<div class="st"><span>★ <b>${p.r}</b></span><span><b>${p.e}+</b> yrs</span><span><b>${p.j.toLocaleString('en-IN')}</b> jobs</span></div><p class="on">● ${p.a}</p>
++function renderPros(){
++$('#pn').innerHTML=cur?`${total} professional mile: ${esc(cur)} <button class="lk" data-clr>Clear filter</button>`:"";
++$('#pg').innerHTML=PR.length?PR.map(p=>`<article class="card pr"><div class="top"><span class="av" style="background:${p.c}">${esc(p.n[0])}</span><div><h3>${esc(p.n)}</h3><p class="m">${esc(p.s)} · ${esc(p.l)}</p></div></div><span class="bd">✓ Verified</span>
++<div class="st"><span>★ <b>${p.r}</b></span><span><b>${p.e}+</b> yrs</span><span><b>${p.j.toLocaleString('en-IN')}</b> jobs</span></div><p class="on">● ${esc(p.a)}</p>
+ <div class="ft"><span>₹${p.p} <small>starting</small></span></div>
+-<div class="bt"><button class="btn o s" data-prof="${p.n}">View Profile</button><button class="btn s" data-book="${p.s}" data-pro="${p.n}">Book Now</button></div></article>`).join("")}
++<div class="bt"><button class="btn o s" data-prof="${esc(p.n)}">View Profile</button><button class="btn s" data-book="${esc(p.s)}" data-pid="${p.id}">Book Now</button></div></article>`).join(""):'<p class="sub">Is search ke liye abhi koi professional nahi mila. Doosri service ya area try karein.</p>'}
++const toCard=p=>({id:p.id,n:p.name,s:p.profession,r:p.rating>0?p.rating:"New",e:p.experience_years,j:p.completed_jobs,p:p.starting_price,a:AV[p.availability_status]||p.availability_status,l:p.city,c:COL[p.id%COL.length]});
++/** GET /api/professionals/search - service / locality / pincode / availability filters run on the server */
++async function loadPros(extra={}){
++try{const r=await GharFixAPI.professionals({limit:12,...(cur?{service:cur}:{}),...extra});PR=r.data.map(toCard);total=r.pagination.total}
++catch(e){PR=[];total=0;toast(e.message)}
++renderPros()}
++/** GET /api/services, then professionals */
++async function init(){
++try{const list=await GharFixAPI.services();SV.length=0;list.forEach(x=>SV.push([x.icon,x.name,x.description,x.id]));renderSv();$('#dl').innerHTML=SV.map(s=>`<option value="${esc(s[1])}">`).join("")}
++catch(e){toast(e.message)}
++await loadPros()}
+ function match(q){q=q.trim().toLowerCase();return q?SV.filter(s=>(s[1]+" "+s[2]).toLowerCase().includes(q)):[]}
+ /* static content */
+-$('#dl').innerHTML=SV.map(s=>`<option value="${s[1]}">`).join("");
++$('#dl').innerHTML=SV.map(s=>`<option value="${esc(s[1])}">`).join("");
+ $('#hw').innerHTML=HW.map((h,i)=>`<div class="card hw"><div class="n">0${i+1}</div><div class="ic" style="margin-top:12px">${h[0]}</div><h3>${h[1]}</h3><p>${h[2]}</p></div>`).join("");
+ $('#tk').innerHTML=TK.map(t=>`<li>${t}</li>`).join("");$('#jk').innerHTML=JK.map(t=>`<li>${t}</li>`).join("");
+ $('#pz').innerHTML=PZ.map(p=>`<div class="card pz"><h3>${p[0]}</h3><b>${p[1]}</b><p>${p[2]}</p></div>`).join("");
+ $('#rv').innerHTML=RV.map(r=>`<figure class="card rv2"><div class="stars" aria-label="5 stars">★★★★★</div><q>${r[2]}</q><div class="who"><span class="av" style="background:#17202A">${r[0][0]}</span><div><b>${r[0]}</b><small>Customer, ${r[1]} (sample)</small></div></div></figure>`).join("");
+ $('#fq').innerHTML=FQ.map((f,i)=>`<div class="q"><button aria-expanded="false" aria-controls="a${i}">${f[0]}</button><div class="a" id="a${i}" role="region"><p>${f[1]}</p></div></div>`).join("");
+ $('#fg').innerHTML=`<div><a class="lg" href="#top" style="color:#fff">GharFix</a><p style="margin-top:10px">Your local home-service partner.</p></div>`+Object.entries(FT).map(([h,l],i)=>`<div><h3>${h}</h3><ul>${l.map(x=>i?`<li><a href="#" data-t="${x} page demo mein available nahi hai">${x}</a></li>`:`<li><a href="#" data-book="${x}">${x}</a></li>`).join("")}</ul></div>`).join("");
+-renderSv();renderPros();
++renderSv();renderPros();init();updateAuthUi();
+ /* modal */
+-function fillPros(sv,sel){$('#fp').innerHTML='<option>Koi bhi available professional</option>'+PR.filter(p=>!sv||p.s===sv).map(p=>`<option ${p.n===sel?'selected':''}>${p.n}</option>`).join("")}
+-function openM(sv="",pro=""){last=document.activeElement;if(pro&&!sv)sv=(PR.find(p=>p.n===pro)||{}).s||"";
+-$('#f').reset();$$('#f em').forEach(e=>e.textContent="");$$('#f .in').forEach(e=>e.removeAttribute('aria-invalid'));
+-$('#fs').innerHTML='<option value="">Select service</option>'+SV.map(s=>`<option ${s[1]===sv?'selected':''}>${s[1]}</option>`).join("");
++async function fillPros(sv,sel){const el=$('#fp');el.innerHTML='<option value="">Koi bhi available professional</option>';if(!sv)return;
++try{const r=await GharFixAPI.professionals({service:sv,limit:50});
++el.innerHTML+=r.data.map(p=>`<option value="${p.id}" ${String(p.id)===String(sel)?'selected':''}>${esc(p.name)}${p.availability_status!=='available'?' ('+p.availability_status+')':''}</option>`).join("")}catch(e){}}
++function openM(sv="",pro=""){last=document.activeElement;if(pro&&!sv)sv=(PR.find(p=>String(p.id)===String(pro))||{}).s||"";
++$('#f').reset();if(GharFixAPI.user)$('#fh').value=GharFixAPI.user.phone||'';$$('#f em').forEach(e=>e.textContent="");$$('#f .in').forEach(e=>e.removeAttribute('aria-invalid'));
++$('#fs').innerHTML='<option value="">Select service</option>'+SV.map(s=>`<option value="${s[3]||''}" ${s[1]===sv?'selected':''}>${esc(s[1])}</option>`).join("");
+ fillPros(sv,pro);const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());$('#fd').min=d.toISOString().slice(0,10);
+ $('#bf').hidden=false;$('#ok').hidden=true;$('#md').hidden=false;document.body.style.overflow='hidden';setTimeout(()=>$(sv?'#fl':'#fs').focus(),60)}
+ function closeM(){if($('#md').hidden)return;$('#md').hidden=true;document.body.style.overflow='';last&&last.focus&&last.focus()}
+-$('#fs').addEventListener('change',e=>fillPros(e.target.value));
++$('#fs').addEventListener('change',e=>fillPros(e.target.value?e.target.selectedOptions[0].text:""));
+ $('#f').addEventListener('submit',e=>{e.preventDefault();let ok=true;
+ const chk=(id,t,msg)=>{const el=$(id),er=el.parentElement.querySelector('em'),bad=!t(el.value.trim());er.textContent=bad?msg:'';el.setAttribute('aria-invalid',bad);if(bad&&ok){el.focus();ok=false}};
+ chk('#fs',v=>v,'Service select karein.');
+@@ -311,39 +339,64 @@
+ chk('#ft',v=>v,'Time slot chunein.');
+ chk('#fh',v=>/^[6-9]\d{9}$/.test(v.replace(/[\s-]/g,'')),'Valid 10 digit mobile number daalein.');
+ if(!ok)return;
+-$('#sm').textContent=`${$('#fs').value} · ${$('#fp').value} · ${$('#fd').value}, ${$('#ft').value} · Ref GF-${Math.floor(1000+Math.random()*9000)}`;
+-$('#bf').hidden=true;$('#ok').hidden=false;$('#ok .btn').focus()});
++if(!GharFixAPI.isLoggedIn()){pending=true;openAuth('login','Booking confirm karne ke liye login ya account banayein.');return}
++submitBooking()});
++/** POST /api/bookings - the server decides the price and validates everything again */
++async function submitBooking(){
++const b=$('#f .btn');b.disabled=true;b.textContent='Booking ho rahi hai...';
++try{
++const d=await GharFixAPI.createBooking({service_id:Number($('#fs').value),professional_id:$('#fp').value?Number($('#fp').value):undefined,location:$('#fl').value.trim(),preferred_date:$('#fd').value,preferred_time:$('#ft').value,contact_phone:$('#fh').value.trim()});
++$('#sm').textContent=`${d.service.name} · ${d.professional.name} · ${d.preferred_date}, ${d.preferred_time} · Ref GF-${d.id} · Estimated ₹${d.estimated_price}`;
++$('#bf').hidden=true;$('#ok').hidden=false;$('#ok .btn').focus()}
++catch(err){if(err.status===401){pending=true;updateAuthUi();openAuth('login',err.message)}else toast(err.message)}
++finally{b.disabled=false;b.textContent='Confirm Booking'}}
++/* ---- login / register modal: POST /api/auth/login, POST /api/auth/register ---- */
++let mode='login';
++function updateAuthUi(){const u=GharFixAPI.user;$('#lg').textContent=GharFixAPI.isLoggedIn()&&u?`Logout (${u.name.split(' ')[0]})`:'Login'}
++function setMode(m){mode=m;$('#an').hidden=m==='login';$('#at').textContent=m==='login'?'Login':'Naya account banayein';$('#ab').textContent=m==='login'?'Login':'Account banayein';$('#asw').textContent=m==='login'?'Naya account banayein':'Pehle se account hai? Login';$('#apw').setAttribute('autocomplete',m==='login'?'current-password':'new-password')}
++function openAuth(m,msg){setMode(m||'login');$('#as').textContent=msg||'';$('#aerr').textContent='';$('#am').hidden=false;setTimeout(()=>$(mode==='login'?'#aem':'#anm').focus(),50)}
++function closeAuth(){$('#am').hidden=true;pending=false}
++$('#asw').addEventListener('click',()=>setMode(mode==='login'?'register':'login'));
++$('#af').addEventListener('submit',async e=>{e.preventDefault();const b=$('#ab'),er=$('#aerr');er.textContent='';b.disabled=true;
++try{const email=$('#aem').value.trim(),pw=$('#apw').value;
++if(mode==='login')await GharFixAPI.login(email,pw);else await GharFixAPI.register({name:$('#anm').value.trim(),email,phone:$('#aph').value.trim(),password:pw});
++updateAuthUi();$('#am').hidden=true;$('#af').reset();toast('Swagat hai!');
++if(pending){pending=false;submitBooking()}}
++catch(err){er.textContent=err.message}finally{b.disabled=false}});
+ /* hero + location search */
+ $('#hf').addEventListener('submit',e=>{e.preventDefault();const q=$('#hq').value,m=match(q),loc=$('#hl').value;
+ if(!q.trim()){toast('Pehle service ka naam likhein, jaise "AC repair".');$('#hq').focus();return}
+ renderSv(q);
+ if(!m.length){toast('Is naam ki service nahi mili. Popular services dekhein.');go('#services');return}
+-cur=m[0][1];renderPros();go('#pros');toast(`${cur} ke professionals${loc?" – "+loc:""}`)});
++cur=m[0][1];loadPros(loc?{locality:loc}:{}).then(()=>{go('#pros');toast(`${cur} ke professionals${loc?" – "+loc:""}`)})});
+ $('#hq').addEventListener('input',e=>{if(!e.target.value.trim())renderSv()});
+ $('#lf').addEventListener('submit',e=>{e.preventDefault();const v=$('#li').value.trim();
+ if(!(/^\d{6}$/.test(v)||(/^[A-Za-z0-9 ,.\-]{3,}$/.test(v)&&!/^\d+$/.test(v)))){toast('Valid locality ya 6 digit pincode likhein, jaise "Rohini Sector 23".');$('#li').focus();return}
+-cur="";renderPros();go('#pros');toast(`${v} ke paas ${PR.length} demo professionals mile`)});
+-$('#urg').addEventListener('click',()=>{cur="";renderPros();go('#pros');toast('Abhi available professionals dikha rahe hain')});
++cur="";loadPros(/^\d{6}$/.test(v)?{pincode:v}:{locality:v}).then(()=>{go('#pros');toast(`${v} ke paas ${total} professionals mile`)})});
++$('#urg').addEventListener('click',()=>{cur="";loadPros({availability:'available'}).then(()=>{go('#pros');toast('Abhi available professionals dikha rahe hain')})});
+ /* global clicks */
+ const nav=$('#nav'),bg=$('#bg');
+ function menu(o){nav.classList.toggle('o',o);bg.setAttribute('aria-expanded',o);bg.textContent=o?'✕':'☰'}
+ bg.addEventListener('click',()=>menu(!nav.classList.contains('o')));
+ $('#va').addEventListener('click',()=>{all=!all;renderSv()});
+-document.addEventListener('click',e=>{const t=e.target.closest('[data-svc],[data-book],[data-prof],[data-t],[data-clr],[data-close],nav a'),d=t&&t.dataset;
+-if(e.target.id==='md')return closeM();if(!t)return;
++document.addEventListener('click',e=>{const t=e.target.closest('[data-svc],[data-book],[data-prof],[data-t],[data-clr],[data-close],[data-auth],[data-aclose],nav a'),d=t&&t.dataset;
++if(e.target.id==='md')return closeM();if(e.target.id==='am')return closeAuth();if(!t)return;
+ if(t.matches('nav a'))menu(false);
+-if(d.t){e.preventDefault();toast(d.t)}
+-else if(d.svc!==undefined){cur=d.svc;renderPros();go('#pros');toast(`${cur} ke liye professionals dikha rahe hain`)}
+-else if(d.book!==undefined){e.preventDefault();openM(d.book,d.pro||"")}
++if(d.auth!==undefined){e.preventDefault();menu(false);if(GharFixAPI.isLoggedIn()){GharFixAPI.logout();updateAuthUi();toast('Logout ho gaye')}else openAuth('login')}
++else if(d.aclose!==undefined)closeAuth()
++else if(d.t){e.preventDefault();toast(d.t)}
++else if(d.svc!==undefined){cur=d.svc;loadPros().then(()=>{go('#pros');toast(`${cur} ke liye professionals dikha rahe hain`)})}
++else if(d.book!==undefined){e.preventDefault();openM(d.book,d.pid||"")}
+ else if(d.prof){toast(`${d.prof} ka full profile jald aayega (demo)`)}
+-else if(d.clr!==undefined){cur="";renderPros()}
++else if(d.clr!==undefined){cur="";loadPros()}
+ else if(d.close!==undefined)closeM()});
+ $('#fq').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const q=b.parentElement,a=b.nextElementSibling,o=!q.classList.contains('o');
+ $$('.q.o').forEach(x=>{x.classList.remove('o');x.firstChild.setAttribute('aria-expanded','false');x.lastChild.style.maxHeight=null});
+ if(o){q.classList.add('o');b.setAttribute('aria-expanded','true');a.style.maxHeight=a.scrollHeight+'px'}});
+ document.addEventListener('keydown',e=>{
+-if(e.key==='Escape'){closeM();menu(false)}
+-if(e.key==='Tab'&&!$('#md').hidden){const f=$$('#md button,#md input,#md select').filter(x=>x.offsetParent);const a=f[0],z=f[f.length-1];
++if(e.key==='Escape'){if(!$('#am').hidden)closeAuth();else closeM();menu(false)}
++const tm=!$('#am').hidden?'#am':'#md';
++if(e.key==='Tab'&&!$(tm).hidden){const f=$$(tm+' button,'+tm+' input,'+tm+' select').filter(x=>x.offsetParent);const a=f[0],z=f[f.length-1];
+ if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+ const hdr=$('header');addEventListener('scroll',()=>hdr.classList.toggle('s',scrollY>20),{passive:true});
+ const io='IntersectionObserver'in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1}):null;

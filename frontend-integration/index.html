@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FF6B35">
+<title>GharFix – Trusted Home Service Professionals Near You</title>
+<meta name="description" content="Electrician, plumber, AC mechanic aur carpenter – verified local professionals ko ghar par bulao.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--p:#FF6B35;--pd:#E4531C;--d:#17202A;--bg:#FFF9F5;--g:#16A34A;--m:#5C6670;--ln:#F1E4DA;--sh:0 10px 30px rgba(23,32,42,.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font:16px/1.6 'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--d);overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;color:inherit}ul{list-style:none}
+:focus-visible{outline:3px solid #FFB59A;outline-offset:2px}
+.w{max-width:1160px;margin:auto;padding:0 20px}
+section{padding:72px 0}
+h1,h2,h3{line-height:1.2;letter-spacing:-.02em}
+h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800}
+h2{font-size:clamp(1.55rem,3.4vw,2.3rem);font-weight:800}
+h3{font-size:1.05rem;font-weight:700}
+.sub{color:var(--m);margin-top:10px;max-width:620px}
+.hd{margin-bottom:34px}.hd.c{text-align:center}.hd.c .sub{margin-inline:auto}
+.tag{display:inline-block;background:#FFE8DD;color:var(--pd);font-weight:700;font-size:.82rem;padding:5px 12px;border-radius:99px;margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-weight:700;padding:13px 24px;border-radius:14px;background:var(--p);color:#fff;min-height:48px;transition:.2s}
+.btn:hover{background:var(--pd);transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,53,.32)}
+.btn.o{background:#fff;color:var(--d);border:1.5px solid var(--ln)}.btn.o:hover{border-color:var(--p);box-shadow:none}
+.btn.s{padding:8px 16px;min-height:40px;font-size:.9rem}
+.lk{background:none;border:0;color:var(--pd);font-weight:700;cursor:pointer;text-decoration:underline}
+.grid{display:grid;gap:20px}.ga{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.gb{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.card{background:#fff;border:1px solid var(--ln);border-radius:20px;padding:24px;box-shadow:var(--sh);transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#FFC7B0}
+.ic{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:#FFEFE6;font-size:1.6rem;margin-bottom:14px}
+.bd{display:inline-block;background:#DCFCE7;color:#15803D;font-weight:700;font-size:.78rem;padding:3px 10px;border-radius:99px}
+.note{color:var(--m);font-size:.88rem;margin-top:18px}
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,249,245,.93);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:.25s}
+header.s{border-color:var(--ln);box-shadow:0 4px 18px rgba(23,32,42,.06)}
+.nv{display:flex;align-items:center;justify-content:space-between;height:76px;transition:height .25s}header.s .nv{height:60px}
+.lg{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.3rem}.lg svg{width:34px;height:34px}
+nav ul{display:flex;gap:26px;font-weight:600;font-size:.95rem}nav a:hover{color:var(--p)}
+.rt{display:flex;gap:10px;align-items:center}
+.bg{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;padding:6px;line-height:1}
+/* hero */
+.hero{padding:44px 0 64px;background:radial-gradient(900px 400px at 85% 0,#FFE5D6,transparent 70%)}
+.hg,.tg{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+h1 em{font-style:normal;color:var(--pd)}
+.lead{font-size:1.08rem;color:var(--m);margin:18px 0 26px;max-width:540px}
+.sb{background:#fff;border:1px solid var(--ln);border-radius:20px;padding:16px;box-shadow:var(--sh);display:grid;gap:10px;max-width:560px}
+.sb .r{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.in{width:100%;padding:12px 14px;border:1.5px solid var(--ln);border-radius:12px;background:#fff;min-height:48px}
+.in:focus{border-color:var(--p);outline:0;box-shadow:0 0 0 3px #FFD9C8}
+.ti{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:20px;font-weight:600;font-size:.9rem}.ti span:before{content:"✓ ";color:var(--g);font-weight:800}
+.vis{position:relative;min-height:440px;display:grid;place-items:center}
+.vis:before{content:"";position:absolute;inset:4%;background:linear-gradient(160deg,#FFD9C6,#FFF1E8);border-radius:44% 56% 48% 52%/52% 44% 56% 48%}
+.hs{position:absolute;top:5%;right:14%;font-size:8.5rem;line-height:1;filter:drop-shadow(0 12px 16px rgba(0,0,0,.12))}
+.pc{position:relative;background:#fff;border-radius:22px;padding:20px;width:min(330px,86%);box-shadow:0 20px 50px rgba(23,32,42,.16);margin-top:130px}
+.pc .row{display:flex;gap:12px;align-items:center}.pc small{color:var(--m);display:block}
+.av{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:50%;color:#fff;font-weight:800;font-size:1.2rem}
+.bar{height:8px;background:#F3E9E1;border-radius:9px;margin:16px 0 10px;overflow:hidden}.bar i{display:block;height:100%;width:68%;background:var(--p);border-radius:9px}
+.fc{position:absolute;background:#fff;border-radius:14px;padding:9px 14px;font-weight:700;font-size:.85rem;box-shadow:var(--sh);animation:fl 5s ease-in-out infinite}
+.f1{left:2%;top:34%}.f2{right:2%;bottom:10%;animation-delay:-2s}.f3{left:6%;bottom:6%;animation-delay:-3s}
+@keyframes fl{50%{transform:translateY(-8px)}}
+/* services */
+.sv{text-align:left;cursor:pointer;font:inherit;color:inherit}.sv p{color:var(--m);font-size:.9rem;margin-top:6px}
+.sv:hover .ic{background:var(--p)}
+.vw{text-align:center;margin-top:26px}
+/* booking band */
+.bk{background:var(--p);border-radius:28px;padding:48px 28px;color:#fff}
+.bk h2{text-align:center;margin-bottom:28px}
+.bk .card{color:var(--d);display:block}.bk .card p{color:var(--m);font-size:.92rem;margin-top:4px}
+.sn{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--d);color:#fff;font-weight:800;margin-bottom:12px}
+.bk .vw .btn{background:#fff;color:var(--pd)}
+/* how */
+.hw{position:relative}.hw .n{font-size:2.4rem;font-weight:800;color:#FFD2BD;line-height:1}.hw p{color:var(--m);font-size:.92rem;margin-top:6px}
+/* trust */
+.tg{grid-template-columns:1fr 1fr}
+.ck li{padding:10px 0;border-bottom:1px solid var(--ln);font-weight:600}.ck li:before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;margin-right:12px;border-radius:50%;background:#DCFCE7;color:var(--g);font-size:.8rem}
+.pf{max-width:400px;margin-inline:auto;width:100%}.pf .top{display:flex;gap:14px;align-items:center;margin-bottom:14px}.pf .av{width:62px;height:62px;font-size:1.6rem}
+.st{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--m);margin:12px 0}.st b{color:var(--d)}
+.ft{display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;font-weight:800;font-size:1.2rem}.ft small{color:var(--m);font-weight:400;font-size:.8rem}
+.bt{display:flex;gap:8px}.bt .btn{flex:1}
+.pr h3{font-size:1.1rem}.pr .top{display:flex;gap:12px;align-items:center;margin-bottom:12px}.pr p.m{color:var(--m);font-size:.88rem}
+.on{font-size:.88rem;font-weight:600;color:#15803D;margin-top:2px}
+#pn{margin-bottom:16px;font-weight:600}
+/* pricing, reviews */
+.pz{text-align:center}.pz b{display:block;font-size:1.9rem;color:var(--pd);margin:6px 0 2px}.pz p{color:var(--m);font-size:.88rem}
+.rv2 .stars{color:#F59E0B;letter-spacing:2px}.rv2 q{display:block;margin:10px 0 16px;quotes:none}.rv2 .who{display:flex;gap:10px;align-items:center;font-size:.9rem}.rv2 .av{width:40px;height:40px;font-size:1rem}.rv2 small{color:var(--m);display:block}
+/* emergency / join */
+.em{background:var(--d);color:#fff;border-radius:28px;padding:48px 32px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-left:8px solid #EF4444}
+.em p{color:#C9D1D9;margin-top:8px}
+.jn{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:28px;padding:44px 32px}
+.jn .ck li{border-color:#BBF7D0}
+.lc{max-width:640px;margin:auto;text-align:center}.lc form{display:flex;gap:10px;margin-top:22px}.lc .in{flex:1}
+/* faq */
+.fq{max-width:760px;margin:auto;display:grid;gap:12px}
+.q{background:#fff;border:1px solid var(--ln);border-radius:16px;overflow:hidden}
+.q button{width:100%;display:flex;justify-content:space-between;gap:16px;align-items:center;text-align:left;background:none;border:0;padding:18px 20px;font-weight:700;cursor:pointer}
+.q button:after{content:"+";font-size:1.4rem;color:var(--p);transition:.3s}.q.o button:after{transform:rotate(45deg)}
+.a{max-height:0;overflow:hidden;transition:max-height .35s ease}.a p{padding:0 20px 18px;color:var(--m)}
+/* cta, footer */
+.cta{background:var(--p);color:#fff;border-radius:28px;padding:56px 28px;text-align:center}
+.cta p{margin:10px 0 26px;opacity:.95}.cta .btn{background:#fff;color:var(--pd)}.cta .btn.o{background:transparent;color:#fff;border-color:#fff}
+.cta div{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{background:var(--d);color:#C9D1D9;padding:56px 0 24px;margin-top:40px}
+.fg{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:28px}
+footer h3{color:#fff;margin-bottom:12px;font-size:.98rem}footer li{margin:6px 0;font-size:.92rem}footer a:hover{color:#FFB59A}
+.cp{border-top:1px solid #2A3644;margin-top:36px;padding-top:20px;font-size:.88rem;text-align:center}
+/* modal + toast */
+.ov{position:fixed;inset:0;background:rgba(23,32,42,.55);display:grid;place-items:center;padding:16px;z-index:100;overflow:auto}.ov[hidden],[hidden]{display:none!important}
+.mc{background:#fff;border-radius:22px;padding:28px;width:100%;max-width:480px;position:relative;animation:up .3s ease}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}
+.x{position:absolute;top:12px;right:14px;width:40px;height:40px;border:0;border-radius:50%;background:#F5EEE9;cursor:pointer;font-size:1rem}
+.mc label{display:block;font-weight:600;font-size:.88rem;margin-top:12px}.mc .in{margin-top:4px}
+.mc em{display:block;color:#DC2626;font-size:.8rem;font-style:normal;min-height:0}.mc .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mc .btn{width:100%;margin-top:18px}.ok{text-align:center;padding:12px 0}.ok .ic{margin:0 auto 14px;background:#DCFCE7;width:64px;height:64px;font-size:2rem;color:var(--g)}
+#ts{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--d);color:#fff;padding:12px 20px;border-radius:12px;opacity:0;transition:.3s;z-index:200;max-width:90vw;text-align:center;pointer-events:none;box-shadow:var(--sh)}
+#ts.on{opacity:1;transform:translate(-50%,0)}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.js .rv.in{opacity:1;transform:none}
+@media(max-width:900px){
+.bg{display:block}nav{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--ln);max-height:0;overflow:hidden;transition:max-height .3s}nav.o{max-height:420px}
+nav ul{flex-direction:column;gap:0;padding:8px 20px 16px}nav li a{display:block;padding:12px 0}
+.hg,.tg,.jn{grid-template-columns:1fr}.vis{min-height:380px}.fg{grid-template-columns:1fr 1fr}.fg>div:first-child{grid-column:1/-1}}
+@media(max-width:640px){
+section{padding:52px 0}.sb .r,.mc .two{grid-template-columns:1fr}.ga{grid-template-columns:repeat(2,1fr)}.card{padding:18px}
+.lc form{flex-direction:column}.bk,.cta,.em,.jn{padding:36px 20px;border-radius:22px}.hs{font-size:6rem}.btn.s.hb{padding:8px 12px;font-size:.82rem}.pc{margin-top:100px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js .rv{opacity:1;transform:none}}
+</style>
+</head>
+<body id="top">
+<header>
+<div class="w nv">
+<a class="lg" href="#top" aria-label="GharFix home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#FF6B35"/><path d="M6 16 16 7l10 9v9H6z" fill="#fff"/><path d="M13 25v-5a3 3 0 1 1 6 0v5z" fill="#FF6B35"/><circle cx="16" cy="16" r="1.6" fill="#17202A"/></svg>GharFix</a>
+<nav id="nav" aria-label="Main"><ul>
+<li><a href="#top">Home</a></li><li><a href="#services">Services</a></li><li><a href="#how">How It Works</a></li><li><a href="#pros">Professionals</a></li><li><a href="#about">About</a></li><li><a href="#" id="lg" data-auth>Login</a></li></ul></nav>
+<div class="rt"><button class="btn s hb" data-book="">Book a Service</button><button class="bg" id="bg" aria-label="Menu" aria-expanded="false" aria-controls="nav">☰</button></div>
+</div>
+</header>
+
+<main>
+<section class="hero"><div class="w hg">
+<div>
+<span class="tag">Delhi NCR ke local professionals</span>
+<h1>Ghar ka har kaam, ek <em>trusted professional</em> ke naam.</h1>
+<p class="lead">Electrician se lekar plumber, AC mechanic aur carpenter tak. Apne ghar ke kaam ke liye verified local professionals ko easily book karein.</p>
+<form class="sb" id="hf" novalidate>
+<label for="hq"><strong>What service do you need?</strong></label>
+<div class="r"><input class="in" id="hq" list="dl" placeholder='🔍 Search "AC repair, plumber, electrician..."' autocomplete="off"><select class="in" id="hl" aria-label="Select location"><option value="">Select Location</option><option>Rohini</option><option>Dwarka</option><option>Pitampura</option><option>Janakpuri</option><option>Saket</option><option>Laxmi Nagar</option><option>Noida</option><option>Gurugram</option></select></div>
+<datalist id="dl"></datalist>
+<button class="btn" type="submit">Find Professional</button>
+</form>
+<div class="ti"><span>Verified Professionals</span><span>Transparent Pricing</span><span>Quick Response</span><span>Service Guarantee</span></div>
+</div>
+<div class="vis" aria-hidden="true">
+<div class="hs">🏠</div>
+<div class="fc f1">⭐ 4.8 rating</div>
+<div class="pc"><div class="row"><span class="av" style="background:#FF6B35">R</span><div><b>Rajesh Kumar</b><small>Electrician · Sample profile</small></div></div>
+<div class="bar"><i></i></div><p>🛵 Aapke ghar pahunch raha hai: <b>25 min</b></p></div>
+<div class="fc f2">✅ Booking confirmed</div><div class="fc f3">₹299 starting</div>
+</div></div></section>
+
+<section id="services"><div class="w">
+<div class="hd rv"><h2>Aapko kis kaam ki zarurat hai?</h2><p class="sub">Apni service chunein aur aapke area ke professionals dekhein.</p></div>
+<div class="grid ga rv" id="sg"></div>
+<div class="vw"><button class="btn o" id="va">View All Services →</button></div>
+</div></section>
+
+<section><div class="w"><div class="bk rv">
+<h2>3 steps mein service book karein</h2>
+<div class="grid gb">
+<a class="card" href="#services"><span class="sn">1</span><h3>Choose a Service</h3><p>Electrician, plumber, AC repair aur bahut kuch.</p></a>
+<a class="card" href="#pros"><span class="sn">2</span><h3>Choose a Professional</h3><p>Rating, experience aur price dekhkar chunein.</p></a>
+<button class="card" data-book="" style="text-align:left;cursor:pointer"><span class="sn">3</span><h3>Book a Time</h3><p>Apni suvidha ka din aur time select karein.</p></button>
+</div>
+<div class="vw"><button class="btn" data-book="">Start Booking</button></div>
+</div></div></section>
+
+<section id="how"><div class="w">
+<div class="hd c rv"><h2>Kaise kaam karta hai</h2><p class="sub">Chaar aasaan steps mein kaam complete.</p></div>
+<div class="grid ga rv" id="hw"></div>
+</div></section>
+
+<section id="about"><div class="w tg">
+<div class="rv"><span class="tag">Trust first</span><h2>Har professional sirf naam se nahi, verification se trusted hai.</h2>
+<ul class="ck" id="tk" style="margin-top:18px"></ul></div>
+<article class="card pf rv"><div class="top"><span class="av" style="background:#FF6B35">R</span><div><h3>Rajesh Kumar</h3><p class="sub" style="margin:0">Electrician</p></div></div>
+<span class="bd">✓ Verified Professional</span>
+<div class="st"><span>★★★★★ <b>4.8</b></span><span><b>8+</b> years experience</span><span><b>1,240</b> services completed</span></div>
+<div class="ft"><span>₹299 <small>starting</small></span><span class="bd" style="background:#FFF3C4;color:#92400E">Sample profile</span></div>
+<div class="bt"><button class="btn o s" data-prof="Rajesh Kumar">View Profile</button><button class="btn s" data-book="Electrician" data-pro="Rajesh Kumar">Book Now</button></div></article>
+</div></section>
+
+<section id="pros"><div class="w">
+<div class="hd rv"><h2>Aapke paas ke professionals</h2><p class="sub">Rating, experience aur availability dekhkar apna professional chunein.</p></div>
+<p id="pn" aria-live="polite"></p>
+<div class="grid gb" id="pg"></div>
+<p class="note">Demo/sample data: yeh profiles sirf design dikhane ke liye hain, real professionals nahi.</p>
+</div></section>
+
+<section id="pricing"><div class="w">
+<div class="hd c rv"><h2>Kaam shuru hone se pehle price samjho.</h2><p class="sub">Starting prices pehle se dikhte hain, koi chhupa hua charge nahi.</p></div>
+<div class="grid ga rv" id="pz"></div>
+<p class="note" style="text-align:center">Final price may vary depending on the actual work/material required.</p>
+</div></section>
+
+<section id="reviews"><div class="w">
+<div class="hd c rv"><h2>Ghar walon ka experience</h2><p class="sub">Sample testimonials, sirf demo ke liye.</p></div>
+<div class="grid gb rv" id="rv"></div>
+</div></section>
+
+<section><div class="w"><div class="em rv">
+<div><h2>Kaam urgent hai?</h2><p>Emergency home service ke liye nearby available professional dhundhein.</p></div>
+<button class="btn" id="urg">Find Available Professional</button>
+</div></div></section>
+
+<section id="join"><div class="w"><div class="jn rv">
+<div><h2>Aap professional hain? Apna kaam badhaiye.</h2><p class="sub">Apne area ke customers tak pahunchiye, apni services list kijiye aur naye bookings receive kijiye.</p>
+<button class="btn" data-t="Professional registration demo mein available nahi hai" style="margin-top:22px">Join as a Professional</button></div>
+<ul class="ck" id="jk"></ul>
+</div></div></section>
+
+<section id="location"><div class="w lc rv">
+<h2>Apne area mein service dhundhein.</h2><p class="sub" style="margin-inline:auto">Hum aapki location automatically access nahi karte.</p>
+<form id="lf" novalidate><label for="li" style="position:absolute;left:-9999px">Locality ya pincode</label><input class="in" id="li" placeholder="Enter your locality / pincode, e.g. Rohini Sector 23" autocomplete="off"><button class="btn" type="submit">Find Services</button></form>
+</div></section>
+
+<section id="faq"><div class="w">
+<div class="hd c rv"><h2>Aksar pooche jaane wale sawal</h2></div>
+<div class="fq rv" id="fq"></div>
+</div></section>
+
+<section><div class="w"><div class="cta rv">
+<h2>Ghar ka kaam pending mat rakho.</h2><p>Apne area ka trusted service professional aaj hi find karein.</p>
+<div><button class="btn" data-book="">Book a Service</button><button class="btn o" data-t="Professional registration demo mein available nahi hai">Become a Professional</button></div>
+</div></div></section>
+</main>
+
+<footer><div class="w">
+<div class="fg" id="fg"></div>
+<p class="cp">© 2026 GharFix. All rights reserved. Demo website, koi real booking nahi hoti.</p>
+</div></footer>
+
+<div class="ov" id="md" hidden><div class="mc" role="dialog" aria-modal="true" aria-labelledby="mt">
+<button class="x" data-close aria-label="Close booking form">✕</button>
+<div id="bf"><h3 id="mt" style="font-size:1.4rem">Book a service</h3><p class="sub" style="margin-top:4px">Details bharein, professional aapko call karega.</p>
+<form id="f" novalidate>
+<label>Service<select class="in" id="fs"></select><em></em></label>
+<label>Professional<select class="in" id="fp"></select><em></em></label>
+<label>Location<input class="in" id="fl" placeholder="Locality ya pincode" autocomplete="street-address"><em></em></label>
+<div class="two"><label>Preferred Date<input class="in" id="fd" type="date"><em></em></label>
+<label>Preferred Time<select class="in" id="ft"><option value="">Select time</option><option>9 AM – 12 PM</option><option>12 PM – 3 PM</option><option>3 PM – 6 PM</option><option>6 PM – 9 PM</option></select><em></em></label></div>
+<label>Phone Number<input class="in" id="fh" type="tel" inputmode="numeric" placeholder="10 digit mobile number" autocomplete="tel"><em></em></label>
+<button class="btn" type="submit">Confirm Booking</button>
+</form></div>
+<div class="ok" id="ok" hidden><div class="ic">✓</div><h3 style="font-size:1.35rem">Booking request received!</h3><p class="sub" style="margin:8px auto 4px">A professional will contact you shortly.</p><p class="note" id="sm"></p><button class="btn" data-close>Done</button></div>
+</div></div>
+<div class="ov" id="am" hidden><div class="mc" role="dialog" aria-modal="true" aria-labelledby="at">
+<button class="x" data-aclose aria-label="Close login form">✕</button>
+<h3 id="at" style="font-size:1.4rem">Login</h3><p class="sub" id="as" style="margin-top:4px"></p>
+<form id="af" novalidate>
+<div id="an" hidden><label>Full Name<input class="in" id="anm" autocomplete="name"></label>
+<label>Phone Number<input class="in" id="aph" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digit mobile number"></label></div>
+<label>Email<input class="in" id="aem" type="email" autocomplete="email"></label>
+<label>Password<input class="in" id="apw" type="password" autocomplete="current-password" placeholder="Min 8 characters, letters + numbers"></label>
+<em id="aerr" role="alert"></em>
+<button class="btn" type="submit" id="ab">Login</button>
+</form>
+<p class="note" style="text-align:center"><button class="lk" id="asw" type="button">Naya account banayein</button></p>
+</div></div>
+<div id="ts" role="status" aria-live="polite"></div>
+
+<script src="gharfix-api.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+document.documentElement.classList.add('js');
+const SV=[["⚡","Electrician","Wiring, switches, fans, MCB & fittings"],["🚰","Plumber","Leakage, taps, pipes & bathroom fittings"],["❄️","AC Repair","Cooling, gas filling, installation & servicing"],["🪚","Carpenter","Furniture, doors, repairs & custom work"],["🔌","Appliance Repair","Microwave, mixer, oven & other appliances"],["💧","RO Repair","Filter change, servicing & leakage fixes"],["🎨","Painter","Interior, exterior & touch-up painting"],["🧺","Washing Machine","Top & front load repair, drain & drum issues"],["📹","CCTV","Camera installation, setup & repair"],["🔥","Geyser","Heating element, thermostat & installation"],["📺","TV Repair","Display, sound & wall-mount help"],["🧊","Refrigerator","Cooling issues, gas & compressor check"],["🔋","Inverter & Battery","Battery check, servicing & replacement"],["🛠️","Home Maintenance","Small fixes around the house in one visit"]];
+let PR=[];
+const AV={available:"Available today",busy:"Busy right now",offline:"Offline"},COL=["#FF6B35","#2563EB","#0F766E","#7C3AED","#DB2777"];
+const esc=t=>String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const HW=[["📝","Tell us what you need","Service chunein aur kaam ki details batayein."],["👀","See available professionals","Aapke area ke verified professionals dekhein."],["✅","Choose your preferred professional","Rating, experience aur price compare karke chunein."],["🛠️","Get the work done","Professional ghar aakar kaam karega."]];
+const TK=["Identity Verified","Experience Checked","Customer Reviews","Service History","Transparent Charges"],JK=["More customers","Digital profile","Booking management","Customer reviews","Local visibility"];
+const PZ=[["Electrician Visit","₹149+","Inspection aur chhote repairs"],["AC Service","₹499+","Jet cleaning aur checkup"],["Plumber Visit","₹199+","Leakage aur tap repair"],["RO Service","₹299+","Filter check aur servicing"]];
+const RV=[["Neha Verma","Rohini","Electrician same day mil gaya aur kaam bhi properly kiya. Booking process bahut simple tha."],["Amit Chauhan","Dwarka","AC service ka price pehle hi pata tha, koi extra charge nahi laga. Time par aaye."],["Sunita Malhotra","Janakpuri","Plumber ne leakage ek visit mein theek kar di. Professional ki rating dekhkar chunna aasaan tha."]];
+const FQ=[["Kya professionals verified hain?","Launch ke baad har professional ka ID aur experience check hoga, tabhi profile live hogi. Yeh page ek demo hai."],["Service booking kaise hoti hai?","Service chunein, professional select karein, date aur time bharein aur Confirm Booking dabayein. Professional aapko call karke confirm karega."],["Kya main professional ko choose kar sakta hoon?","Haan. Rating, experience, price aur availability dekhkar aap apna pasandida professional chun sakte hain."],["Price kaise decide hota hai?","Har service ka starting price pehle dikhta hai. Final price actual kaam aur material par depend karta hai, aur kaam shuru hone se pehle bataya jayega."],["Agar kaam properly na ho to?","Aap support se baat karke dobara visit ya solution maang sakte hain. Service guarantee ki details launch par clearly publish hongi."],["Kya emergency service available hai?","Haan, urgent kaam ke liye nearby available professionals dhundhe ja sakte hain. Availability area aur time par depend karti hai."],["Kya professionals apni profile bana sakte hain?","Bilkul. Join as a Professional par click karke apni services aur area bata sakte hain."]];
+const FT={"Services":["Electrician","Plumber","AC Repair","Carpenter","Appliance Repair"],"Company":["About","How It Works","Careers","Contact"],"For Professionals":["Join as Professional","Partner Login","Help"],"Support":["Help Center","Safety","Terms","Privacy"]};
+let cur="",all=false,last,pending=false,total=0;
+function toast(m){const t=$('#ts');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3200)}
+function go(id){$(id).scrollIntoView({behavior:'smooth'})}
+function renderSv(q=""){q=q.trim().toLowerCase();
+const l=SV.filter((s,i)=>q?(s[1]+" "+s[2]).toLowerCase().includes(q):(all||i<10));
+$('#sg').innerHTML=l.map(s=>`<button class="card sv" data-svc="${esc(s[1])}"><span class="ic">${esc(s[0])}</span><h3>${esc(s[1])}</h3><p>${esc(s[2])}</p></button>`).join("")||'<p class="sub">Is naam ki service nahi mili. "AC" ya "plumber" jaisa kuch try karein.</p>';
+$('#va').parentElement.hidden=!!q;$('#va').textContent=all?"Show fewer":"View All Services →"}
+function renderPros(){
+$('#pn').innerHTML=cur?`${total} professional mile: ${esc(cur)} <button class="lk" data-clr>Clear filter</button>`:"";
+$('#pg').innerHTML=PR.length?PR.map(p=>`<article class="card pr"><div class="top"><span class="av" style="background:${p.c}">${esc(p.n[0])}</span><div><h3>${esc(p.n)}</h3><p class="m">${esc(p.s)} · ${esc(p.l)}</p></div></div><span class="bd">✓ Verified</span>
+<div class="st"><span>★ <b>${p.r}</b></span><span><b>${p.e}+</b> yrs</span><span><b>${p.j.toLocaleString('en-IN')}</b> jobs</span></div><p class="on">● ${esc(p.a)}</p>
+<div class="ft"><span>₹${p.p} <small>starting</small></span></div>
+<div class="bt"><button class="btn o s" data-prof="${esc(p.n)}">View Profile</button><button class="btn s" data-book="${esc(p.s)}" data-pid="${p.id}">Book Now</button></div></article>`).join(""):'<p class="sub">Is search ke liye abhi koi professional nahi mila. Doosri service ya area try karein.</p>'}
+const toCard=p=>({id:p.id,n:p.name,s:p.profession,r:p.rating>0?p.rating:"New",e:p.experience_years,j:p.completed_jobs,p:p.starting_price,a:AV[p.availability_status]||p.availability_status,l:p.city,c:COL[p.id%COL.length]});
+/** GET /api/professionals/search - service / locality / pincode / availability filters run on the server */
+async function loadPros(extra={}){
+try{const r=await GharFixAPI.professionals({limit:12,...(cur?{service:cur}:{}),...extra});PR=r.data.map(toCard);total=r.pagination.total}
+catch(e){PR=[];total=0;toast(e.message)}
+renderPros()}
+/** GET /api/services, then professionals */
+async function init(){
+try{const list=await GharFixAPI.services();SV.length=0;list.forEach(x=>SV.push([x.icon,x.name,x.description,x.id]));renderSv();$('#dl').innerHTML=SV.map(s=>`<option value="${esc(s[1])}">`).join("")}
+catch(e){toast(e.message)}
+await loadPros()}
+function match(q){q=q.trim().toLowerCase();return q?SV.filter(s=>(s[1]+" "+s[2]).toLowerCase().includes(q)):[]}
+/* static content */
+$('#dl').innerHTML=SV.map(s=>`<option value="${esc(s[1])}">`).join("");
+$('#hw').innerHTML=HW.map((h,i)=>`<div class="card hw"><div class="n">0${i+1}</div><div class="ic" style="margin-top:12px">${h[0]}</div><h3>${h[1]}</h3><p>${h[2]}</p></div>`).join("");
+$('#tk').innerHTML=TK.map(t=>`<li>${t}</li>`).join("");$('#jk').innerHTML=JK.map(t=>`<li>${t}</li>`).join("");
+$('#pz').innerHTML=PZ.map(p=>`<div class="card pz"><h3>${p[0]}</h3><b>${p[1]}</b><p>${p[2]}</p></div>`).join("");
+$('#rv').innerHTML=RV.map(r=>`<figure class="card rv2"><div class="stars" aria-label="5 stars">★★★★★</div><q>${r[2]}</q><div class="who"><span class="av" style="background:#17202A">${r[0][0]}</span><div><b>${r[0]}</b><small>Customer, ${r[1]} (sample)</small></div></div></figure>`).join("");
+$('#fq').innerHTML=FQ.map((f,i)=>`<div class="q"><button aria-expanded="false" aria-controls="a${i}">${f[0]}</button><div class="a" id="a${i}" role="region"><p>${f[1]}</p></div></div>`).join("");
+$('#fg').innerHTML=`<div><a class="lg" href="#top" style="color:#fff">GharFix</a><p style="margin-top:10px">Your local home-service partner.</p></div>`+Object.entries(FT).map(([h,l],i)=>`<div><h3>${h}</h3><ul>${l.map(x=>i?`<li><a href="#" data-t="${x} page demo mein available nahi hai">${x}</a></li>`:`<li><a href="#" data-book="${x}">${x}</a></li>`).join("")}</ul></div>`).join("");
+renderSv();renderPros();init();updateAuthUi();
+/* modal */
+async function fillPros(sv,sel){const el=$('#fp');el.innerHTML='<option value="">Koi bhi available professional</option>';if(!sv)return;
+try{const r=await GharFixAPI.professionals({service:sv,limit:50});
+el.innerHTML+=r.data.map(p=>`<option value="${p.id}" ${String(p.id)===String(sel)?'selected':''}>${esc(p.name)}${p.availability_status!=='available'?' ('+p.availability_status+')':''}</option>`).join("")}catch(e){}}
+function openM(sv="",pro=""){last=document.activeElement;if(pro&&!sv)sv=(PR.find(p=>String(p.id)===String(pro))||{}).s||"";
+$('#f').reset();if(GharFixAPI.user)$('#fh').value=GharFixAPI.user.phone||'';$$('#f em').forEach(e=>e.textContent="");$$('#f .in').forEach(e=>e.removeAttribute('aria-invalid'));
+$('#fs').innerHTML='<option value="">Select service</option>'+SV.map(s=>`<option value="${s[3]||''}" ${s[1]===sv?'selected':''}>${esc(s[1])}</option>`).join("");
+fillPros(sv,pro);const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());$('#fd').min=d.toISOString().slice(0,10);
+$('#bf').hidden=false;$('#ok').hidden=true;$('#md').hidden=false;document.body.style.overflow='hidden';setTimeout(()=>$(sv?'#fl':'#fs').focus(),60)}
+function closeM(){if($('#md').hidden)return;$('#md').hidden=true;document.body.style.overflow='';last&&last.focus&&last.focus()}
+$('#fs').addEventListener('change',e=>fillPros(e.target.value?e.target.selectedOptions[0].text:""));
+$('#f').addEventListener('submit',e=>{e.preventDefault();let ok=true;
+const chk=(id,t,msg)=>{const el=$(id),er=el.parentElement.querySelector('em'),bad=!t(el.value.trim());er.textContent=bad?msg:'';el.setAttribute('aria-invalid',bad);if(bad&&ok){el.focus();ok=false}};
+chk('#fs',v=>v,'Service select karein.');
+chk('#fl',v=>v.length>=3,'Apni locality ya pincode likhein.');
+chk('#fd',v=>v&&v>=$('#fd').min,'Aaj ya aage ki date chunein.');
+chk('#ft',v=>v,'Time slot chunein.');
+chk('#fh',v=>/^[6-9]\d{9}$/.test(v.replace(/[\s-]/g,'')),'Valid 10 digit mobile number daalein.');
+if(!ok)return;
+if(!GharFixAPI.isLoggedIn()){pending=true;openAuth('login','Booking confirm karne ke liye login ya account banayein.');return}
+submitBooking()});
+/** POST /api/bookings - the server decides the price and validates everything again */
+async function submitBooking(){
+const b=$('#f .btn');b.disabled=true;b.textContent='Booking ho rahi hai...';
+try{
+const d=await GharFixAPI.createBooking({service_id:Number($('#fs').value),professional_id:$('#fp').value?Number($('#fp').value):undefined,location:$('#fl').value.trim(),preferred_date:$('#fd').value,preferred_time:$('#ft').value,contact_phone:$('#fh').value.trim()});
+$('#sm').textContent=`${d.service.name} · ${d.professional.name} · ${d.preferred_date}, ${d.preferred_time} · Ref GF-${d.id} · Estimated ₹${d.estimated_price}`;
+$('#bf').hidden=true;$('#ok').hidden=false;$('#ok .btn').focus()}
+catch(err){if(err.status===401){pending=true;updateAuthUi();openAuth('login',err.message)}else toast(err.message)}
+finally{b.disabled=false;b.textContent='Confirm Booking'}}
+/* ---- login / register modal: POST /api/auth/login, POST /api/auth/register ---- */
+let mode='login';
+function updateAuthUi(){const u=GharFixAPI.user;$('#lg').textContent=GharFixAPI.isLoggedIn()&&u?`Logout (${u.name.split(' ')[0]})`:'Login'}
+function setMode(m){mode=m;$('#an').hidden=m==='login';$('#at').textContent=m==='login'?'Login':'Naya account banayein';$('#ab').textContent=m==='login'?'Login':'Account banayein';$('#asw').textContent=m==='login'?'Naya account banayein':'Pehle se account hai? Login';$('#apw').setAttribute('autocomplete',m==='login'?'current-password':'new-password')}
+function openAuth(m,msg){setMode(m||'login');$('#as').textContent=msg||'';$('#aerr').textContent='';$('#am').hidden=false;setTimeout(()=>$(mode==='login'?'#aem':'#anm').focus(),50)}
+function closeAuth(){$('#am').hidden=true;pending=false}
+$('#asw').addEventListener('click',()=>setMode(mode==='login'?'register':'login'));
+$('#af').addEventListener('submit',async e=>{e.preventDefault();const b=$('#ab'),er=$('#aerr');er.textContent='';b.disabled=true;
+try{const email=$('#aem').value.trim(),pw=$('#apw').value;
+if(mode==='login')await GharFixAPI.login(email,pw);else await GharFixAPI.register({name:$('#anm').value.trim(),email,phone:$('#aph').value.trim(),password:pw});
+updateAuthUi();$('#am').hidden=true;$('#af').reset();toast('Swagat hai!');
+if(pending){pending=false;submitBooking()}}
+catch(err){er.textContent=err.message}finally{b.disabled=false}});
+/* hero + location search */
+$('#hf').addEventListener('submit',e=>{e.preventDefault();const q=$('#hq').value,m=match(q),loc=$('#hl').value;
+if(!q.trim()){toast('Pehle service ka naam likhein, jaise "AC repair".');$('#hq').focus();return}
+renderSv(q);
+if(!m.length){toast('Is naam ki service nahi mili. Popular services dekhein.');go('#services');return}
+cur=m[0][1];loadPros(loc?{locality:loc}:{}).then(()=>{go('#pros');toast(`${cur} ke professionals${loc?" – "+loc:""}`)})});
+$('#hq').addEventListener('input',e=>{if(!e.target.value.trim())renderSv()});
+$('#lf').addEventListener('submit',e=>{e.preventDefault();const v=$('#li').value.trim();
+if(!(/^\d{6}$/.test(v)||(/^[A-Za-z0-9 ,.\-]{3,}$/.test(v)&&!/^\d+$/.test(v)))){toast('Valid locality ya 6 digit pincode likhein, jaise "Rohini Sector 23".');$('#li').focus();return}
+cur="";loadPros(/^\d{6}$/.test(v)?{pincode:v}:{locality:v}).then(()=>{go('#pros');toast(`${v} ke paas ${total} professionals mile`)})});
+$('#urg').addEventListener('click',()=>{cur="";loadPros({availability:'available'}).then(()=>{go('#pros');toast('Abhi available professionals dikha rahe hain')})});
+/* global clicks */
+const nav=$('#nav'),bg=$('#bg');
+function menu(o){nav.classList.toggle('o',o);bg.setAttribute('aria-expanded',o);bg.textContent=o?'✕':'☰'}
+bg.addEventListener('click',()=>menu(!nav.classList.contains('o')));
+$('#va').addEventListener('click',()=>{all=!all;renderSv()});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-svc],[data-book],[data-prof],[data-t],[data-clr],[data-close],[data-auth],[data-aclose],nav a'),d=t&&t.dataset;
+if(e.target.id==='md')return closeM();if(e.target.id==='am')return closeAuth();if(!t)return;
+if(t.matches('nav a'))menu(false);
+if(d.auth!==undefined){e.preventDefault();menu(false);if(GharFixAPI.isLoggedIn()){GharFixAPI.logout();updateAuthUi();toast('Logout ho gaye')}else openAuth('login')}
+else if(d.aclose!==undefined)closeAuth()
+else if(d.t){e.preventDefault();toast(d.t)}
+else if(d.svc!==undefined){cur=d.svc;loadPros().then(()=>{go('#pros');toast(`${cur} ke liye professionals dikha rahe hain`)})}
+else if(d.book!==undefined){e.preventDefault();openM(d.book,d.pid||"")}
+else if(d.prof){toast(`${d.prof} ka full profile jald aayega (demo)`)}
+else if(d.clr!==undefined){cur="";loadPros()}
+else if(d.close!==undefined)closeM()});
+$('#fq').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const q=b.parentElement,a=b.nextElementSibling,o=!q.classList.contains('o');
+$$('.q.o').forEach(x=>{x.classList.remove('o');x.firstChild.setAttribute('aria-expanded','false');x.lastChild.style.maxHeight=null});
+if(o){q.classList.add('o');b.setAttribute('aria-expanded','true');a.style.maxHeight=a.scrollHeight+'px'}});
+document.addEventListener('keydown',e=>{
+if(e.key==='Escape'){if(!$('#am').hidden)closeAuth();else closeM();menu(false)}
+const tm=!$('#am').hidden?'#am':'#md';
+if(e.key==='Tab'&&!$(tm).hidden){const f=$$(tm+' button,'+tm+' input,'+tm+' select').filter(x=>x.offsetParent);const a=f[0],z=f[f.length-1];
+if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+const hdr=$('header');addEventListener('scroll',()=>hdr.classList.toggle('s',scrollY>20),{passive:true});
+const io='IntersectionObserver'in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1}):null;
+$$('.rv').forEach(el=>io?io.observe(el):el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
