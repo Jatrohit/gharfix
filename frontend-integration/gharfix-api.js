@@ -7,7 +7,7 @@
  */
 (function (global) {
   'use strict';
-  const BASE = (global.GHARFIX_API_URL || 'http://localhost:5000/api').replace(/\/+$/, '');
+  const BASE = (global.GHARFIX_API_URL || 'https://gharfix-9l1w.onrender.com').replace(/\/+$/, '');
   const TOKEN_KEY = 'gharfix_token';
   const USER_KEY = 'gharfix_user';
 
