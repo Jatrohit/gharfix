@@ -1,15 +1,30 @@
 /*!
- * gharfix-api.js  -  tiny client for the GharFix backend.
- * Load it BEFORE your main script with a script tag whose src is "gharfix-api.js".
- * Change the base URL with:         window.GHARFIX_API_URL = "https://api.yourdomain.com/api";
+ * gharfix-api.js  -  small client for the GharFix backend.
+ * Load it BEFORE the page script with a script tag whose src is "gharfix-api.js".
  *
- * The JWT is kept in localStorage (key: gharfix_token). Logging out = deleting it.
+ * Which backend is used:
+ *   - page opened from disk or from localhost / 127.0.0.1  ->  http://localhost:5000/api   (local development)
+ *   - any other address (the live website)                  ->  PROD_API below
+ *   - you can always force it:  window.GHARFIX_API_URL = "https://.../api"  (set before this file loads)
+ *
+ * Customer, professional and admin pages each keep their OWN login token (different localStorage keys),
+ * so logging in as admin does not log a customer out in another tab.
+ *     GharFixAPI                      -> customer session (index.html)
+ *     GharFixAPI.create('pro')        -> professional session (professional.html)
+ *     GharFixAPI.create('admin')      -> admin session (admin.html)
  */
 (function (global) {
   'use strict';
-  const BASE = (global.GHARFIX_API_URL || 'https://gharfix-9l1w.onrender.com/api').replace(/\/+$/, '');
-  const TOKEN_KEY = 'gharfix_token';
-  const USER_KEY = 'gharfix_user';
+
+  const PROD_API = 'https://gharfix-9l1w.onrender.com/api'; // <- change only if your backend URL changes
+  const DEV_API = 'http://localhost:5000/api';
+
+  function defaultBase() {
+    const l = global.location || {};
+    const local = l.protocol === 'file:' || l.hostname === 'localhost' || l.hostname === '127.0.0.1';
+    return local ? DEV_API : PROD_API;
+  }
+  const BASE = (global.GHARFIX_API_URL || defaultBase()).replace(/\/+$/, '');
 
   const store = {
     get(k) { try { return global.localStorage.getItem(k); } catch (_) { return null; } },
@@ -21,87 +36,99 @@
     constructor(message, status, code, errors) {
       super(message);
       this.name = 'ApiError';
-      this.status = status; // 0 = network error
+      this.status = status; // 0 = could not reach the server
       this.code = code || null;
       this.errors = errors || [];
     }
   }
 
-  async function request(method, path, { body, query, auth = true } = {}) {
-    let url = BASE + path;
-    if (query) {
-      const qs = new URLSearchParams();
-      Object.entries(query).forEach(([k, v]) => { if (v !== undefined && v !== null && v !== '') qs.append(k, v); });
-      if ([...qs].length) url += '?' + qs.toString();
-    }
-    const headers = {};
-    if (body !== undefined) headers['Content-Type'] = 'application/json';
-    const token = api.token;
-    if (auth && token) headers.Authorization = 'Bearer ' + token;
+  function createClient(namespace) {
+    const TOKEN_KEY = namespace ? `gharfix_${namespace}_token` : 'gharfix_token';
+    const USER_KEY = namespace ? `gharfix_${namespace}_user` : 'gharfix_user';
 
-    let res;
-    try {
-      res = await fetch(url, { method, headers, body: body !== undefined ? JSON.stringify(body) : undefined });
-    } catch (_) {
-      throw new ApiError('Server se connect nahi ho paaya. Internet ya backend check karein.', 0, 'NETWORK');
+    async function request(method, path, { body, query, auth = true } = {}) {
+      let url = BASE + path;
+      if (query) {
+        const qs = new URLSearchParams();
+        Object.entries(query).forEach(([k, v]) => { if (v !== undefined && v !== null && v !== '') qs.append(k, v); });
+        if ([...qs].length) url += '?' + qs.toString();
+      }
+      const headers = {};
+      if (body !== undefined) headers['Content-Type'] = 'application/json';
+      if (auth && api.token) headers.Authorization = 'Bearer ' + api.token;
+
+      let res;
+      try {
+        res = await fetch(url, { method, headers, body: body !== undefined ? JSON.stringify(body) : undefined });
+      } catch (_) {
+        throw new ApiError('Server se connect nahi ho paaya. Internet check karke thodi der baad dobara try karein.', 0, 'NETWORK');
+      }
+      let json = null;
+      try { json = await res.json(); } catch (_) { /* empty / non-JSON */ }
+      if (!res.ok || !json || json.success === false) {
+        if (res.status === 401 && api.token) api.logout(); // expired / invalid token -> clean up
+        throw new ApiError((json && json.message) || 'Kuch galat ho gaya. Kripya dobara try karein.', res.status, json && json.code, json && json.errors);
+      }
+      return json; // { success, message, data, pagination? }
     }
-    let json = null;
-    try { json = await res.json(); } catch (_) { /* empty / non-JSON */ }
-    if (!res.ok || !json || json.success === false) {
-      if (res.status === 401 && api.token) api.logout(); // expired / invalid token -> clean up
-      throw new ApiError((json && json.message) || 'Something went wrong', res.status, json && json.code, json && json.errors);
+
+    function saveSession(data) {
+      store.set(TOKEN_KEY, data.token);
+      store.set(USER_KEY, JSON.stringify(data.user));
+      return data;
     }
-    return json; // { success, message, data, pagination? }
+
+    const api = {
+      BASE,
+      ApiError,
+      get token() { return store.get(TOKEN_KEY); },
+      get user() { try { return JSON.parse(store.get(USER_KEY) || 'null'); } catch (_) { return null; } },
+      isLoggedIn() { return !!api.token; },
+      logout() { store.del(TOKEN_KEY); store.del(USER_KEY); },
+
+      // ---- auth ----
+      async login(emailOrPhone, password) {
+        const r = await request('POST', '/auth/login', { body: { email: emailOrPhone, password }, auth: false });
+        return saveSession(r.data);
+      },
+      async register({ name, email, phone, password, ...rest }) {
+        const r = await request('POST', '/auth/register', { body: { name, email, phone, password, ...rest }, auth: false });
+        return saveSession(r.data);
+      },
+      async professionalLogin(emailOrPhone, password) {
+        const r = await request('POST', '/auth/professional/login', { body: { email: emailOrPhone, password }, auth: false });
+        return saveSession(r.data);
+      },
+      /** data: name, email, phone, password, service_id, experience_years, starting_price, service_area, city, pincode, bio */
+      async professionalRegister(data) {
+        const r = await request('POST', '/auth/professional/register', { body: data, auth: false });
+        return saveSession(r.data);
+      },
+      async me() {
+        const r = await request('GET', '/auth/me');
+        store.set(USER_KEY, JSON.stringify(r.data.user));
+        return r.data;
+      },
+
+      // ---- public catalogue ----
+      async services() { return (await request('GET', '/services', { auth: false })).data; },
+      /** filters: service, city, locality, pincode, min_rating, availability, experience, price, sort, order, page, limit */
+      professionals(filters = {}) { return request('GET', '/professionals/search', { query: filters, auth: false }); },
+      async professional(id) { return (await request('GET', `/professionals/${id}`, { auth: false })).data; },
+      reviews(id, query) { return request('GET', `/professionals/${id}/reviews`, { query, auth: false }); },
+
+      // ---- customer ----
+      async createBooking(payload) { return (await request('POST', '/bookings', { body: payload })).data; },
+      myBookings(query) { return request('GET', '/bookings/my-bookings', { query }); },
+      async cancelBooking(id) { return (await request('PUT', `/bookings/${id}/cancel`)).data; },
+      async createReview({ booking_id, rating, review }) {
+        return (await request('POST', '/reviews', { body: { booking_id, rating, review } })).data;
+      },
+    };
+    return api;
   }
 
-  function saveSession(data) {
-    store.set(TOKEN_KEY, data.token);
-    store.set(USER_KEY, JSON.stringify(data.user));
-    return data;
-  }
-
-  const api = {
-    BASE,
-    ApiError,
-    get token() { return store.get(TOKEN_KEY); },
-    get user() { try { return JSON.parse(store.get(USER_KEY) || 'null'); } catch (_) { return null; } },
-    isLoggedIn() { return !!api.token; },
-    logout() { store.del(TOKEN_KEY); store.del(USER_KEY); },
-
-    // ---- auth ----
-    async login(emailOrPhone, password) {
-      const r = await request('POST', '/auth/login', { body: { email: emailOrPhone, password }, auth: false });
-      return saveSession(r.data);
-    },
-    async register({ name, email, phone, password, ...rest }) {
-      const r = await request('POST', '/auth/register', { body: { name, email, phone, password, ...rest }, auth: false });
-      return saveSession(r.data);
-    },
-    async professionalLogin(emailOrPhone, password) {
-      const r = await request('POST', '/auth/professional/login', { body: { email: emailOrPhone, password }, auth: false });
-      return saveSession(r.data);
-    },
-    async me() {
-      const r = await request('GET', '/auth/me');
-      store.set(USER_KEY, JSON.stringify(r.data.user));
-      return r.data;
-    },
-
-    // ---- public catalogue ----
-    async services() { return (await request('GET', '/services', { auth: false })).data; },
-    /** filters: service, city, locality, pincode, min_rating, availability, experience, price, sort, order, page, limit */
-    professionals(filters = {}) { return request('GET', '/professionals/search', { query: filters, auth: false }); },
-    async professional(id) { return (await request('GET', `/professionals/${id}`, { auth: false })).data; },
-    reviews(id, query) { return request('GET', `/professionals/${id}/reviews`, { query, auth: false }); },
-
-    // ---- customer ----
-    async createBooking(payload) { return (await request('POST', '/bookings', { body: payload })).data; },
-    myBookings(query) { return request('GET', '/bookings/my-bookings', { query }); },
-    async cancelBooking(id) { return (await request('PUT', `/bookings/${id}/cancel`)).data; },
-    async createReview({ booking_id, rating, review }) {
-      return (await request('POST', '/reviews', { body: { booking_id, rating, review } })).data;
-    },
-  };
-
-  global.GharFixAPI = api;
+  const defaultClient = createClient('');
+  defaultClient.create = createClient;
+  global.GharFixAPI = defaultClient;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -217,7 +217,7 @@ section{padding:52px 0}.sb .r,.mc .two{grid-template-columns:1fr}.ga{grid-templa
 
 <section id="join"><div class="w"><div class="jn rv">
 <div><h2>Aap professional hain? Apna kaam badhaiye.</h2><p class="sub">Apne area ke customers tak pahunchiye, apni services list kijiye aur naye bookings receive kijiye.</p>
-<button class="btn" data-t="Professional registration demo mein available nahi hai" style="margin-top:22px">Join as a Professional</button></div>
+<a class="btn" href="professional.html#register" style="margin-top:22px">Join as a Professional</a></div>
 <ul class="ck" id="jk"></ul>
 </div></div></section>
 
@@ -233,7 +233,7 @@ section{padding:52px 0}.sb .r,.mc .two{grid-template-columns:1fr}.ga{grid-templa
 
 <section><div class="w"><div class="cta rv">
 <h2>Ghar ka kaam pending mat rakho.</h2><p>Apne area ka trusted service professional aaj hi find karein.</p>
-<div><button class="btn" data-book="">Book a Service</button><button class="btn o" data-t="Professional registration demo mein available nahi hai">Become a Professional</button></div>
+<div><button class="btn" data-book="">Book a Service</button><a class="btn o" href="professional.html#register">Become a Professional</a></div>
 </div></div></section>
 </main>
 
@@ -318,7 +318,7 @@ $('#tk').innerHTML=TK.map(t=>`<li>${t}</li>`).join("");$('#jk').innerHTML=JK.map
 $('#pz').innerHTML=PZ.map(p=>`<div class="card pz"><h3>${p[0]}</h3><b>${p[1]}</b><p>${p[2]}</p></div>`).join("");
 $('#rv').innerHTML=RV.map(r=>`<figure class="card rv2"><div class="stars" aria-label="5 stars">★★★★★</div><q>${r[2]}</q><div class="who"><span class="av" style="background:#17202A">${r[0][0]}</span><div><b>${r[0]}</b><small>Customer, ${r[1]} (sample)</small></div></div></figure>`).join("");
 $('#fq').innerHTML=FQ.map((f,i)=>`<div class="q"><button aria-expanded="false" aria-controls="a${i}">${f[0]}</button><div class="a" id="a${i}" role="region"><p>${f[1]}</p></div></div>`).join("");
-$('#fg').innerHTML=`<div><a class="lg" href="#top" style="color:#fff">GharFix</a><p style="margin-top:10px">Your local home-service partner.</p></div>`+Object.entries(FT).map(([h,l],i)=>`<div><h3>${h}</h3><ul>${l.map(x=>i?`<li><a href="#" data-t="${x} page demo mein available nahi hai">${x}</a></li>`:`<li><a href="#" data-book="${x}">${x}</a></li>`).join("")}</ul></div>`).join("");
+$('#fg').innerHTML=`<div><a class="lg" href="#top" style="color:#fff">GharFix</a><p style="margin-top:10px">Your local home-service partner.</p></div>`+Object.entries(FT).map(([h,l],i)=>`<div><h3>${h}</h3><ul>${l.map(x=>x==="Join as Professional"?`<li><a href="professional.html#register">${x}</a></li>`:x==="Partner Login"?`<li><a href="professional.html#login">${x}</a></li>`:i?`<li><a href="#" data-t="${x} page demo mein available nahi hai">${x}</a></li>`:`<li><a href="#" data-book="${x}">${x}</a></li>`).join("")}</ul></div>`).join("");
 renderSv();renderPros();init();updateAuthUi();
 /* modal */
 async function fillPros(sv,sel){const el=$('#fp');el.innerHTML='<option value="">Koi bhi available professional</option>';if(!sv)return;

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FF6B35">
+<title>GharFix for Professionals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top"><div class="w">
+<a class="lg" href="index.html" aria-label="GharFix home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#FF6B35"/><path d="M6 16 16 7l10 9v9H6z" fill="#fff"/><path d="M13 25v-5a3 3 0 1 1 6 0v5z" fill="#FF6B35"/><circle cx="16" cy="16" r="1.6" fill="#17202A"/></svg>GharFix <span style="font-weight:600;color:#5C6670;font-size:.9rem">Professionals</span></a>
+<a class="btn o s" href="index.html">Customer site</a>
+</div></header>
+
+<main class="w">
+
+<!-- Login / Register -->
+<section id="auth" class="narrow">
+<h1>Aap professional hain? GharFix par apna profile banayein.</h1>
+<p class="sub">Registration ke baad GharFix team aapka profile review karegi. Approve hone ke baad aap customers ko dikhenge aur booking requests aayengi.</p>
+
+<div class="tabs" role="tablist">
+<button type="button" role="tab" id="tl" aria-selected="false" aria-controls="lf">Login</button>
+<button type="button" role="tab" id="tr" aria-selected="true" aria-controls="rf">Naya registration</button>
+</div>
+
+<!-- LOGIN -->
+<form id="lf" class="card" novalidate hidden>
+<h2>Professional login</h2>
+<label class="f">Email ya phone number<input class="in" id="lid" autocomplete="username" inputmode="email"><span class="er"></span></label>
+<label class="f">Password<input class="in" id="lpw" type="password" autocomplete="current-password"><span class="er"></span></label>
+<div class="bn err" id="lerr" role="alert" hidden></div>
+<button class="btn full" type="submit" id="lbtn">Login</button>
+</form>
+
+<!-- REGISTER -->
+<form id="rf" class="card" novalidate>
+<h2>Professional registration</h2>
+<div class="row2">
+<label class="f">Poora naam<input class="in" id="rn" autocomplete="name"><span class="er"></span></label>
+<label class="f">Mobile number<input class="in" id="rp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digit number"><span class="er"></span></label>
+</div>
+<label class="f">Email<input class="in" id="re" type="email" autocomplete="email"><span class="er"></span></label>
+<label class="f">Password<input class="in" id="rw" type="password" autocomplete="new-password" placeholder="Kam se kam 8 characters, letters aur numbers"><span class="er"></span></label>
+
+<label class="f">Aap kaun si service dete hain?<select class="in" id="rs"><option value="">Service chunein</option></select><span class="er"></span></label>
+<div class="row2">
+<label class="f">Experience (saal)<input class="in" id="rx" type="number" inputmode="numeric" min="0" max="60" placeholder="Jaise 5"><span class="er"></span></label>
+<label class="f">Starting price (₹)<input class="in" id="rpr" type="number" inputmode="numeric" min="1" max="100000" placeholder="Jaise 299"><span class="er"></span></label>
+</div>
+<label class="f">Kin areas mein kaam karte hain?<input class="in" id="ra" placeholder="Jaise Rohini, Pitampura, Shalimar Bagh" maxlength="255"><span class="er"></span></label>
+<div class="row2">
+<label class="f">City<input class="in" id="rc" value="Delhi" autocomplete="address-level2"><span class="er"></span></label>
+<label class="f">Main area ka pincode<input class="in" id="rz" inputmode="numeric" maxlength="6" placeholder="Jaise 110085" autocomplete="postal-code"><span class="er"></span></label>
+</div>
+<label class="f">Apne baare mein (optional)<textarea class="in" id="rb" maxlength="1000" placeholder="Aap kya kaam karte hain, kitne saal se, kis tarah ke kaam mein expert hain"></textarea><span class="er"></span></label>
+
+<label class="chk"><input type="checkbox" id="rk"><span>Main samajhta/samajhti hoon ki GharFix team mera profile review karegi, aur booking accept karne ke baad mera naam aur phone number customer ko dikhega.</span></label>
+<span class="er" id="rke"></span>
+
+<div class="bn err" id="rerr" role="alert" hidden></div>
+<div class="bn warn" id="rwait" hidden>Server start ho raha hai, 1 minute tak lag sakta hai. Page band mat karein.</div>
+<button class="btn full" type="submit" id="rbtn">Registration karein</button>
+</form>
+</section>
+
+<!-- Logged-in view -->
+<section id="me" class="narrow" hidden>
+<div class="head"><div><h1 id="mn"></h1><p class="sub" id="ms"></p></div><button class="btn o s" id="lo" type="button">Logout</button></div>
+<div class="card" style="margin-top:20px">
+<div class="head"><h2>Aapka profile</h2><span class="bd" id="mb"></span></div>
+<div class="bn" id="mm"></div>
+<dl class="kv" id="mk"></dl>
+</div>
+</section>
+
+</main>
+<div id="ts" role="status" aria-live="polite"></div>
+
+<script src="gharfix-api.js"></script>
+<script>
+(()=>{
+'use strict';
+const api=GharFixAPI.create('pro');
+const $=s=>document.querySelector(s);
+const tx=(el,t)=>{el.textContent=t==null?'':String(t)};
+function toast(m){const t=$('#ts');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3500)}
+
+/* ---------- tabs ---------- */
+function tab(name){const reg=name!=='login';
+$('#rf').hidden=!reg;$('#lf').hidden=reg;
+$('#tr').setAttribute('aria-selected',reg);$('#tl').setAttribute('aria-selected',!reg);
+if(location.hash!=='#'+(reg?'register':'login'))history.replaceState(null,'','#'+(reg?'register':'login'))}
+$('#tl').addEventListener('click',()=>tab('login'));
+$('#tr').addEventListener('click',()=>tab('register'));
+
+/* ---------- helpers ---------- */
+const normPhone=v=>{let d=String(v||'').replace(/[\s\-().]/g,'');if(d[0]==='+')d=d.slice(1);if(d.length===12&&d.startsWith('91'))d=d.slice(2);else if(d.length===11&&d[0]==='0')d=d.slice(1);return d};
+function setErr(input,msg){const e=input.parentElement.querySelector('.er');if(e)tx(e,msg);input.setAttribute('aria-invalid',msg?'true':'false')}
+function clearErrs(form){form.querySelectorAll('.er').forEach(e=>tx(e,''));form.querySelectorAll('[aria-invalid]').forEach(i=>i.removeAttribute('aria-invalid'))}
+function banner(el,msg){tx(el,msg);el.hidden=!msg}
+/** run all checks, focus the first bad field; returns true if everything is fine */
+function validate(checks){let first=null;for(const[id,test,msg]of checks){const el=$(id),bad=!test(el.value.trim());setErr(el,bad?msg:'');if(bad&&!first)first=el}if(first)first.focus();return !first}
+
+/* ---------- services list for the dropdown ---------- */
+async function loadServices(){
+try{const list=await api.services();
+$('#rs').innerHTML='<option value="">Service chunein</option>'+list.map(s=>`<option value="${Number(s.id)}"></option>`).join('');
+[...$('#rs').options].slice(1).forEach((o,i)=>tx(o,`${list[i].icon||''} ${list[i].name}`.trim()))}
+catch(e){banner($('#rerr'),e.message)}}
+
+/* ---------- register ---------- */
+$('#rf').addEventListener('submit',async e=>{e.preventDefault();
+clearErrs(e.target);banner($('#rerr'),'');tx($('#rke'),'');
+const ok=validate([
+['#rn',v=>v.length>=2&&v.length<=100,'Apna poora naam likhein.'],
+['#rp',v=>/^[6-9]\d{9}$/.test(normPhone(v)),'Valid 10 digit mobile number daalein.'],
+['#re',v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v),'Valid email address daalein.'],
+['#rw',v=>v.length>=8&&v.length<=72&&/[A-Za-z]/.test(v)&&/\d/.test(v),'Password kam se kam 8 characters ka ho, usme letters aur numbers dono hon.'],
+['#rs',v=>!!v,'Service chunein.'],
+['#rx',v=>v!==''&&Number.isInteger(Number(v))&&Number(v)>=0&&Number(v)<=60,'Experience 0 se 60 saal ke beech likhein.'],
+['#rpr',v=>Number(v)>=1&&Number(v)<=100000,'Starting price 1 se 100000 ke beech likhein.'],
+['#ra',v=>v.length>=3,'Kin areas mein kaam karte hain, ye likhein.'],
+['#rc',v=>v.length>=2,'City likhein.'],
+['#rz',v=>/^[1-9]\d{5}$/.test(v),'Valid 6 digit pincode daalein.']
+]);
+if(!ok)return;
+if(!$('#rk').checked){tx($('#rke'),'Aage badhne ke liye is par tick karein.');$('#rk').focus();return}
+
+const btn=$('#rbtn');btn.disabled=true;tx(btn,'Registration ho raha hai...');
+const slow=setTimeout(()=>{$('#rwait').hidden=false},4000);
+try{
+const d=await api.professionalRegister({
+name:$('#rn').value.trim(),email:$('#re').value.trim(),phone:normPhone($('#rp').value),password:$('#rw').value,
+service_id:Number($('#rs').value),experience_years:Number($('#rx').value),starting_price:Number($('#rpr').value),
+service_area:$('#ra').value.trim(),city:$('#rc').value.trim(),pincode:$('#rz').value.trim(),bio:$('#rb').value.trim()||undefined});
+$('#rf').reset();$('#rc').value='Delhi';
+renderMe(d.professional,d.user);toast('Registration ho gaya!');
+}catch(err){banner($('#rerr'),err.message)}
+finally{clearTimeout(slow);$('#rwait').hidden=true;btn.disabled=false;tx(btn,'Registration karein')}});
+
+/* ---------- login ---------- */
+$('#lf').addEventListener('submit',async e=>{e.preventDefault();
+clearErrs(e.target);banner($('#lerr'),'');
+if(!validate([['#lid',v=>v.length>=5,'Email ya phone number likhein.'],['#lpw',v=>v.length>=1,'Password likhein.']]))return;
+const btn=$('#lbtn');btn.disabled=true;tx(btn,'Login ho raha hai...');
+try{const d=await api.professionalLogin($('#lid').value.trim(),$('#lpw').value);
+$('#lf').reset();renderMe(d.professional,d.user)}
+catch(err){banner($('#lerr'),err.message)}
+finally{btn.disabled=false;tx(btn,'Login')}});
+
+/* ---------- logged-in view (all values come from the API) ---------- */
+const STATUS={
+pending:{cls:'warn',badge:'Review pending',msg:'GharFix team aapka profile review kar rahi hai. Approve hone ke baad aap customers ko dikhenge aur booking requests aa sakengi.'},
+approved:{cls:'ok',badge:'Approved',msg:'Aapka profile approve ho chuka hai. Aap customers ko dikh rahe hain.'},
+rejected:{cls:'err',badge:'Approve nahi hua',msg:'Aapka registration abhi approve nahi hua. Jaankari ya details sudharne ke liye GharFix team se sampark karein.'}};
+const AVAIL={available:'Available',busy:'Busy',offline:'Offline'};
+function renderMe(pro,user){
+if(!pro){api.logout();show('auth');return}
+const st=STATUS[pro.verification_status]||STATUS.pending;
+tx($('#mn'),`Namaste, ${(user&&user.name||pro.name||'').split(' ')[0]}`);
+tx($('#ms'),pro.service&&pro.service.name?`${pro.service.name} · ${pro.city||''}`:'');
+const b=$('#mb');tx(b,st.badge);b.className='bd '+st.cls;
+const m=$('#mm');tx(m,st.msg);m.className='bn '+st.cls;
+const rows=[
+['Service',pro.service&&pro.service.name],
+['Experience',pro.experience_years!=null?`${pro.experience_years} saal`:'-'],
+['Starting price',pro.starting_price!=null?`₹${pro.starting_price}`:'-'],
+['Kaam ke areas',pro.service_area],
+['City / Pincode',[pro.city,pro.pincode].filter(Boolean).join(' - ')],
+['Availability',AVAIL[pro.availability_status]||pro.availability_status],
+['Rating',pro.total_reviews>0?`${pro.rating} ★ (${pro.total_reviews} reviews)`:'Abhi koi review nahi'],
+['Poore kiye hue jobs',pro.completed_jobs],
+['Mobile',user&&user.phone],['Email',user&&user.email]];
+const kv=$('#mk');kv.textContent='';
+rows.forEach(([k,v])=>{const w=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');tx(dt,k);tx(dd,v==null||v===''?'-':v);w.append(dt,dd);kv.append(w)});
+show('me')}
+function show(v){$('#auth').hidden=v!=='auth';$('#me').hidden=v!=='me';window.scrollTo(0,0)}
+$('#lo').addEventListener('click',()=>{api.logout();show('auth');tab('login');toast('Logout ho gaye')});
+
+/* ---------- start ---------- */
+(async()=>{
+tab(location.hash==='#login'?'login':'register');
+loadServices();
+if(api.isLoggedIn()){
+try{const d=await api.me();renderMe(d.professional,d.user)}
+catch(e){show('auth');if(e.status===403)banner($('#lerr'),e.message)}}})();
+})();
+</script>
+</body>
+</html>
