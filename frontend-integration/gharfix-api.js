@@ -124,6 +124,21 @@
       async createReview({ booking_id, rating, review }) {
         return (await request('POST', '/reviews', { body: { booking_id, rating, review } })).data;
       },
+
+      // ---- admin (the server checks the admin role on every one of these) ----
+      async adminDashboard() { return (await request('GET', '/admin/dashboard')).data; },
+      adminUsers(query) { return request('GET', '/admin/users', { query }); },
+      adminProfessionals(query) { return request('GET', '/admin/professionals', { query }); },
+      /** action: approve | reject | suspend | reinstate */
+      async adminProfessionalAction(id, action) {
+        if (!['approve', 'reject', 'suspend', 'reinstate'].includes(action)) throw new Error('Invalid action');
+        return (await request('PUT', `/admin/professionals/${Number(id)}/${action}`)).data;
+      },
+      adminBookings(query) { return request('GET', '/admin/bookings', { query }); },
+      async adminUpdateBooking(id, body) { return (await request('PUT', `/admin/bookings/${Number(id)}`, { body })).data; },
+      async adminServices() { return (await request('GET', '/admin/services')).data; },
+      async adminCreateService(body) { return (await request('POST', '/admin/services', { body })).data; },
+      async adminUpdateService(id, body) { return (await request('PUT', `/admin/services/${Number(id)}`, { body })).data; },
     };
     return api;
   }

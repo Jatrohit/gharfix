@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#17202A">
+<title>GharFix Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+.tabs2{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}.tabs2::-webkit-scrollbar{display:none}
+.tabs2 button{flex:none;border:1.5px solid var(--ln);background:#fff;border-radius:99px;padding:10px 18px;min-height:44px;font-weight:700;cursor:pointer;color:var(--m)}
+.tabs2 button[aria-selected=true]{background:var(--d);color:#fff;border-color:var(--d)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}@media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:#fff;border:1px solid var(--ln);border-radius:16px;padding:16px;text-align:left;font:inherit;color:inherit;display:block;width:100%}
+button.stat{cursor:pointer}button.stat:hover{border-color:var(--p)}
+.stat b{display:block;font-size:1.9rem;line-height:1.1}.stat span{color:var(--m);font-size:.85rem}
+.stat.warn{border-color:#FCD34D;background:#FFFBEB}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 16px}.bar .in{flex:1 1 180px;min-width:0}.bar select.in{flex:0 1 200px}
+.list{display:grid;gap:12px}
+.it{background:#fff;border:1px solid var(--ln);border-radius:16px;padding:16px}
+.it-h{display:flex;gap:8px 12px;flex-wrap:wrap;align-items:center;justify-content:space-between}.it-h h3{overflow-wrap:anywhere}
+.bds{display:flex;gap:6px;flex-wrap:wrap}.bd.n{background:#F1F5F9;color:#475569}
+.it-m{color:var(--m);font-size:.9rem;margin-top:8px;display:grid;gap:3px;overflow-wrap:anywhere}.it-m b{color:var(--d);font-weight:700}
+.it-a{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}.it-a select.in{width:auto;min-height:40px;padding:6px 10px}
+.it-d{margin-top:12px;padding-top:12px;border-top:1px dashed var(--ln)}
+.btn.g{background:var(--g)}.btn.g:hover{background:#15803D}.btn.d{background:#DC2626}.btn.d:hover{background:#B91C1C}
+.pg{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;color:var(--m);font-size:.9rem}
+.emp{text-align:center;color:var(--m);padding:36px 12px;background:#fff;border:1px dashed var(--ln);border-radius:16px}
+.ov{position:fixed;inset:0;background:rgba(23,32,42,.55);display:grid;place-items:center;padding:16px;z-index:100;overflow:auto}
+.mc{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:460px}
+.sv-i{display:flex;gap:12px;align-items:center}.sv-i .ic{font-size:1.6rem;width:46px;height:46px;border-radius:12px;background:#FFEFE6;display:grid;place-items:center;flex:none}
+</style>
+</head>
+<body>
+<header class="top"><div class="w">
+<a class="lg" href="admin.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#17202A"/><path d="M6 16 16 7l10 9v9H6z" fill="#fff"/><path d="M13 25v-5a3 3 0 1 1 6 0v5z" fill="#17202A"/><circle cx="16" cy="16" r="1.6" fill="#FF6B35"/></svg>GharFix <span style="font-weight:600;color:#5C6670;font-size:.9rem">Admin</span></a>
+<div id="who" hidden style="display:flex;gap:10px;align-items:center"><span id="whon" style="font-size:.9rem;font-weight:600"></span><button class="btn o s" id="lo" type="button">Logout</button></div>
+</div></header>
+
+<main class="w">
+
+<!-- LOGIN -->
+<section id="auth" class="narrow" hidden>
+<h1>Admin login</h1>
+<p class="sub">Sirf GharFix admin ke liye.</p>
+<form id="lf" class="card" style="margin-top:20px" novalidate>
+<label class="f">Email<input class="in" id="le" type="email" autocomplete="username"><span class="er"></span></label>
+<label class="f">Password<input class="in" id="lp" type="password" autocomplete="current-password"><span class="er"></span></label>
+<div class="bn err" id="lerr" role="alert" hidden></div>
+<button class="btn full" type="submit" id="lb">Login</button>
+</form>
+</section>
+
+<!-- APP -->
+<section id="app" hidden>
+<div class="tabs2" role="tablist" id="tabs">
+<button type="button" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+<button type="button" role="tab" data-tab="pros" aria-selected="false">Professionals</button>
+<button type="button" role="tab" data-tab="book" aria-selected="false">Bookings</button>
+<button type="button" role="tab" data-tab="cust" aria-selected="false">Customers</button>
+<button type="button" role="tab" data-tab="serv" aria-selected="false">Services</button>
+</div>
+
+<div id="p-overview" role="tabpanel"><h1>Dashboard</h1><div id="ov"></div></div>
+
+<div id="p-pros" role="tabpanel" hidden><h1>Professionals</h1>
+<div class="bar"><select class="in" id="pf" aria-label="Status filter"><option value="">Sab</option><option value="pending">Review pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="suspended">Suspended</option></select>
+<input class="in" id="ps" type="search" placeholder="Naam, email ya phone" aria-label="Search professionals"></div>
+<div id="pl"></div></div>
+
+<div id="p-book" role="tabpanel" hidden><h1>Bookings</h1>
+<div class="bar"><select class="in" id="bf" aria-label="Status filter"><option value="">Sab</option><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="confirmed">Confirmed</option><option value="in_progress">In progress</option><option value="completed">Completed</option><option value="rejected">Rejected</option><option value="cancelled">Cancelled</option></select>
+<input class="in" id="bs" type="search" placeholder="Customer / professional ka naam ya pincode" aria-label="Search bookings"></div>
+<div id="bl"></div></div>
+
+<div id="p-cust" role="tabpanel" hidden><h1>Customers</h1>
+<div class="bar"><input class="in" id="cs" type="search" placeholder="Naam, email ya phone" aria-label="Search customers"></div>
+<div id="cl"></div></div>
+
+<div id="p-serv" role="tabpanel" hidden>
+<div class="head"><h1>Services</h1><button class="btn s" id="svnew" type="button">+ Naya service</button></div>
+<div id="sl" style="margin-top:14px"></div></div>
+</section>
+</main>
+
+<!-- service add/edit modal -->
+<div class="ov" id="svm" hidden><div class="mc" role="dialog" aria-modal="true" aria-labelledby="svt">
+<h2 id="svt">Naya service</h2>
+<form id="svf" novalidate>
+<label class="f">Service ka naam<input class="in" id="svn" maxlength="80"><span class="er"></span></label>
+<div class="row2">
+<label class="f">Starting price (₹)<input class="in" id="svp" type="number" inputmode="numeric" min="0" max="100000"><span class="er"></span></label>
+<label class="f">Icon (emoji, optional)<input class="in" id="svi" maxlength="8" placeholder="🔧"><span class="er"></span></label>
+</div>
+<label class="f">Short description (optional)<input class="in" id="svd" maxlength="500"><span class="er"></span></label>
+<label class="chk" id="sva"><input type="checkbox" id="svact"><span>Customers ko dikhta rahe (active)</span></label>
+<div class="bn err" id="sverr" role="alert" hidden></div>
+<div style="display:flex;gap:10px;margin-top:18px"><button class="btn o" type="button" id="svc" style="flex:1">Cancel</button><button class="btn" type="submit" id="svs" style="flex:1">Save</button></div>
+</form></div></div>
+
+<div id="ts" role="status" aria-live="polite"></div>
+
+<script src="gharfix-api.js"></script>
+<script>
+(()=>{
+'use strict';
+const api=GharFixAPI.create('admin');
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+/** tiny DOM builder: everything is inserted as TEXT, so server data can never inject HTML */
+const h=(tag,a,...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(a||{})){if(v==null||v===false)continue;if(k==='class')e.className=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v===true?'':v)}
+for(const kid of kids.flat()){if(kid==null||kid===false)continue;e.append(kid instanceof Node?kid:document.createTextNode(String(kid)))}return e};
+function toast(m){const t=$('#ts');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3500)}
+const rs=n=>n==null?'-':'₹'+n;
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const date=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');return m?`${+m[3]} ${MON[+m[2]-1]} ${m[1]}`:'-'};
+const msg=t=>h('div',{class:'emp'},t);
+const bd=(t,c)=>h('span',{class:'bd '+(c||'n')},t);
+const kv=rows=>h('div',{class:'it-m'},rows.filter(r=>r[1]!==undefined).map(([k,v])=>h('div',null,h('b',null,k+': '),v==null||v===''?'-':v)));
+function slowHint(){const t=setTimeout(()=>toast('Server jag raha hai, 1 minute tak lag sakta hai...'),5000);return()=>clearTimeout(t)}
+
+/* ---------- screens ---------- */
+function showLogin(note){$('#auth').hidden=false;$('#app').hidden=true;$('#who').hidden=true;const e=$('#lerr');e.textContent=note||'';e.hidden=!note}
+function showApp(user){$('#auth').hidden=true;$('#app').hidden=false;$('#who').hidden=false;$('#whon').textContent=user.name.split(' ')[0];go('overview')}
+function fail(box,e,retry){if(e.status===401){showLogin('Session khatam ho gaya. Dobara login karein.');return}
+box.replaceChildren(h('div',{class:'emp'},e.message,h('div',{style:'margin-top:12px'},h('button',{class:'btn o s',type:'button',onclick:retry},'Dobara try karein'))))}
+
+/* ---------- login ---------- */
+const bad=(el,m)=>{el.parentElement.querySelector('.er').textContent=m;el.setAttribute('aria-invalid',!!m)};
+$('#lf').addEventListener('submit',async ev=>{ev.preventDefault();const em=$('#le'),pw=$('#lp'),err=$('#lerr');err.hidden=true;
+bad(em,/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())?'':'Valid email likhein.');bad(pw,pw.value?'':'Password likhein.');
+if(!em.value.trim()||!pw.value||em.getAttribute('aria-invalid')==='true')return;
+const b=$('#lb');b.disabled=true;b.textContent='Login ho raha hai...';const done=slowHint();
+try{const d=await api.login(em.value.trim(),pw.value);
+if(d.user.role!=='admin'){api.logout();err.textContent='Ye account admin ka nahi hai.';err.hidden=false;return}
+$('#lf').reset();showApp(d.user)}
+catch(e){err.textContent=e.message;err.hidden=false}
+finally{done();b.disabled=false;b.textContent='Login'}});
+$('#lo').addEventListener('click',()=>{api.logout();showLogin();toast('Logout ho gaye')});
+
+/* ---------- tabs ---------- */
+const state={pros:{page:1},book:{page:1},cust:{page:1}};
+function go(name){$$('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===name));
+['overview','pros','book','cust','serv'].forEach(t=>{$('#p-'+t).hidden=t!==name});
+({overview:loadOverview,pros:loadPros,book:loadBook,cust:loadCust,serv:loadServ})[name]()}
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(b)go(b.dataset.tab)});
+
+function pager(box,pg,to){if(!pg||pg.total===0)return;
+box.append(h('div',{class:'pg'},h('button',{class:'btn o s',type:'button',disabled:pg.page<=1,onclick:()=>to(pg.page-1)},'← Pichla'),
+h('span',null,`Page ${pg.page} / ${pg.totalPages} · ${pg.total} total`),
+h('button',{class:'btn o s',type:'button',disabled:pg.page>=pg.totalPages,onclick:()=>to(pg.page+1)},'Agla →')))}
+function debounce(fn,ms=350){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}}
+
+/* ---------- overview ---------- */
+async function loadOverview(){const box=$('#ov');box.replaceChildren(msg('Load ho raha hai...'));
+try{const d=await api.adminDashboard();
+const card=(label,val,o={})=>{const inner=[h('b',null,val),h('span',null,label)];return o.go?h('button',{class:'stat '+(o.cls||''),type:'button',onclick:o.go},inner):h('div',{class:'stat '+(o.cls||'')},inner)};
+box.replaceChildren(
+d.pending_professionals>0?h('div',{class:'bn warn'},`${d.pending_professionals} professional approval ka wait kar rahe hain.`):null,
+h('div',{class:'stats'},
+card('Review pending (professionals)',d.pending_professionals,{cls:d.pending_professionals?'warn':'',go:()=>openPros('pending')}),
+card('Approved professionals',d.verified_professionals,{go:()=>openPros('approved')}),
+card('Rejected professionals',d.rejected_professionals,{go:()=>openPros('rejected')}),
+card('Total professionals',d.total_professionals,{go:()=>openPros('')}),
+card('Pending bookings',d.pending_bookings,{cls:d.pending_bookings?'warn':'',go:()=>openBook('pending')}),
+card('Completed bookings',d.completed_bookings,{go:()=>openBook('completed')}),
+card('Cancelled bookings',d.cancelled_bookings,{go:()=>openBook('cancelled')}),
+card('Total bookings',d.total_bookings,{go:()=>openBook('')}),
+card('Customers',d.total_customers,{go:()=>go('cust')}),
+card('Services',d.total_services,{go:()=>go('serv')}),
+card('Reviews',d.total_reviews)))}
+catch(e){fail(box,e,loadOverview)}}
+function openPros(status){$('#pf').value=status;$('#ps').value='';state.pros.page=1;go('pros')}
+function openBook(status){$('#bf').value=status;$('#bs').value='';state.book.page=1;go('book')}
+
+/* ---------- professionals ---------- */
+const VER={pending:['Review pending','warn'],approved:['Approved','ok'],rejected:['Rejected','err']};
+const AV={available:'Available',busy:'Busy',offline:'Offline'};
+async function loadPros(){const box=$('#pl');box.replaceChildren(msg('Load ho raha hai...'));
+try{const r=await api.adminProfessionals({status:$('#pf').value,search:$('#ps').value.trim(),page:state.pros.page,limit:10});
+const list=h('div',{class:'list'},r.data.map(proItem));
+box.replaceChildren(r.data.length?list:msg($('#pf').value||$('#ps').value?'Is filter mein koi professional nahi mila.':'Abhi koi professional registered nahi hai.'));
+pager(box,r.pagination,p=>{state.pros.page=p;loadPros()})}
+catch(e){fail(box,e,loadPros)}}
+$('#pf').addEventListener('change',()=>{state.pros.page=1;loadPros()});
+$('#ps').addEventListener('input',debounce(()=>{state.pros.page=1;loadPros()}));
+
+function proItem(p){
+const [vl,vc]=VER[p.verification_status]||[p.verification_status,'n'],suspended=!p.is_active;
+const det=h('div',{class:'it-d',hidden:true},kv([['Email',p.email],['Mobile',p.phone],['Kaam ke areas',p.service_area],['City / Pincode',[p.city,p.pincode].filter(Boolean).join(' - ')],
+['Experience',`${p.experience_years} saal`],['Starting price',rs(p.starting_price)],['Availability',AV[p.availability_status]||p.availability_status],
+['Rating',p.total_reviews>0?`${p.rating} ★ (${p.total_reviews} reviews)`:'Abhi koi review nahi'],['Poore kiye jobs',p.completed_jobs],['Bio',p.bio],['Registered',date(p.created_at)]]));
+const btn=(label,cls,action)=>h('button',{class:'btn s '+cls,type:'button',onclick:ev=>proAction(p,action,ev.currentTarget)},label);
+const acts=[];
+if(p.verification_status==='pending')acts.push(btn('Approve','g','approve'),btn('Reject','d','reject'));
+else if(p.verification_status==='rejected')acts.push(btn('Approve','g','approve'));
+else if(suspended)acts.push(btn('Reinstate','g','reinstate'));
+else acts.push(btn('Suspend','d','suspend'));
+return h('div',{class:'it'},
+h('div',{class:'it-h'},h('h3',null,p.name),h('div',{class:'bds'},bd(vl,vc),suspended?bd('Suspended','err'):null)),
+kv([['Service',p.profession],['Area',[p.city,p.pincode].filter(Boolean).join(' - ')],['Mobile',p.phone]]),
+h('div',{class:'it-a'},acts,h('button',{class:'btn o s',type:'button',onclick:()=>{det.hidden=!det.hidden}},'Details')),det)}
+
+const PRO_MSG={
+approve:p=>`${p.name} ko approve karna hai? Approve hone par wo customers ko dikhenge aur bookings le sakenge.`,
+reject:p=>`${p.name} ko reject karna hai? Wo public list mein nahi dikhenge.`,
+suspend:p=>`${p.name} ko suspend karna hai? Unka login turant band ho jayega aur wo public list se hat jayenge.`,
+reinstate:p=>`${p.name} ka account dobara chalu karna hai?`};
+const PRO_DONE={approve:'approve ho gaye',reject:'reject ho gaye',suspend:'suspend ho gaye',reinstate:'dobara chalu ho gaye'};
+async function proAction(p,action,btn){if(!confirm(PRO_MSG[action](p)))return;btn.disabled=true;
+try{await api.adminProfessionalAction(p.id,action);toast(`${p.name} ${PRO_DONE[action]}`);loadPros()}
+catch(e){if(e.status===401)return showLogin('Session khatam ho gaya. Dobara login karein.');toast(e.message);btn.disabled=false}}
+
+/* ---------- bookings ---------- */
+const BST={pending:['Pending','warn'],accepted:['Accepted','ok'],confirmed:['Confirmed','ok'],in_progress:['In progress','ok'],completed:['Completed','ok'],rejected:['Rejected','err'],cancelled:['Cancelled','err']};
+// same table as the server (utils/constants.js); the server stays the final authority
+const NEXT={pending:['accepted','rejected','confirmed','cancelled'],accepted:['confirmed','in_progress','cancelled'],confirmed:['in_progress','cancelled'],in_progress:['completed','cancelled']};
+async function loadBook(){const box=$('#bl');box.replaceChildren(msg('Load ho raha hai...'));
+try{const r=await api.adminBookings({status:$('#bf').value,search:$('#bs').value.trim(),page:state.book.page,limit:10});
+box.replaceChildren(r.data.length?h('div',{class:'list'},r.data.map(bookItem)):msg($('#bf').value||$('#bs').value?'Is filter mein koi booking nahi mili.':'Abhi koi booking nahi hai.'));
+pager(box,r.pagination,p=>{state.book.page=p;loadBook()})}
+catch(e){fail(box,e,loadBook)}}
+$('#bf').addEventListener('change',()=>{state.book.page=1;loadBook()});
+$('#bs').addEventListener('input',debounce(()=>{state.book.page=1;loadBook()}));
+
+function bookItem(b){const [sl,sc]=BST[b.status]||[b.status,'n'],next=NEXT[b.status]||[];
+const sel=h('select',{class:'in','aria-label':'Naya status'},h('option',{value:''},'Status badlein...'),next.map(s=>h('option',{value:s},BST[s][0])));
+const price=b.final_price!=null?`Final ${rs(b.final_price)} (estimate ${rs(b.estimated_price)})`:`Estimate ${rs(b.estimated_price)}`;
+return h('div',{class:'it'},
+h('div',{class:'it-h'},h('h3',null,`#${b.id} · ${b.service.name}`),h('div',{class:'bds'},bd(sl,sc),bd('Source: '+b.booking_source))),
+kv([['Customer',[b.customer.name,b.customer.phone].filter(Boolean).join(' · ')],['Professional',[b.professional.name,b.professional.phone].filter(Boolean).join(' · ')],
+['Kab',`${date(b.preferred_date)} · ${b.preferred_time}`],['Kahan',[b.address,b.city,b.pincode].filter(Boolean).join(', ')],
+['Problem',b.problem_description||undefined],['Price',price],['Booked on',date(b.created_at)]]),
+next.length?h('div',{class:'it-a'},sel,h('button',{class:'btn s',type:'button',onclick:ev=>bookStatus(b,sel.value,ev.currentTarget)},'Update')):h('div',{class:'it-a'},h('span',{class:'sub',style:'margin:0;font-size:.85rem'},'Ye booking final status mein hai.')))}
+async function bookStatus(b,to,btn){if(!to){toast('Pehle naya status chunein.');return}
+if(!confirm(`Booking #${b.id} ko "${BST[to][0]}" karna hai?`))return;btn.disabled=true;
+try{await api.adminUpdateBooking(b.id,{status:to});toast(`Booking #${b.id}: ${BST[to][0]}`);loadBook()}
+catch(e){if(e.status===401)return showLogin('Session khatam ho gaya. Dobara login karein.');toast(e.message);btn.disabled=false}}
+
+/* ---------- customers (read only) ---------- */
+async function loadCust(){const box=$('#cl');box.replaceChildren(msg('Load ho raha hai...'));
+try{const r=await api.adminUsers({role:'customer',search:$('#cs').value.trim(),page:state.cust.page,limit:10});
+box.replaceChildren(r.data.length?h('div',{class:'list'},r.data.map(u=>h('div',{class:'it'},
+h('div',{class:'it-h'},h('h3',null,u.name),h('div',{class:'bds'},u.is_active?bd('Active','ok'):bd('Inactive','err'))),
+kv([['Email',u.email],['Mobile',u.phone],['City / Pincode',[u.city,u.pincode].filter(Boolean).join(' - ')],['Joined',date(u.created_at)]])))):msg($('#cs').value?'Koi customer nahi mila.':'Abhi koi customer registered nahi hai.'));
+pager(box,r.pagination,p=>{state.cust.page=p;loadCust()})}
+catch(e){fail(box,e,loadCust)}}
+$('#cs').addEventListener('input',debounce(()=>{state.cust.page=1;loadCust()}));
+
+/* ---------- services ---------- */
+let editing=null;
+async function loadServ(){const box=$('#sl');box.replaceChildren(msg('Load ho raha hai...'));
+try{const list=await api.adminServices();
+box.replaceChildren(list.length?h('div',{class:'list'},list.map(s=>h('div',{class:'it'},
+h('div',{class:'it-h'},h('div',{class:'sv-i'},h('span',{class:'ic'},s.icon||'🛠️'),h('div',null,h('h3',null,s.name),h('div',{class:'sub',style:'margin:0;font-size:.85rem'},`Starting ${rs(s.starting_price)}`))),
+h('div',{class:'bds'},s.is_active?bd('Active','ok'):bd('Hidden','err'))),
+s.description?kv([['Detail',s.description]]):null,
+h('div',{class:'it-a'},h('button',{class:'btn o s',type:'button',onclick:()=>openSvc(s)},'Edit'),
+h('button',{class:'btn s '+(s.is_active?'d':'g'),type:'button',onclick:ev=>toggleSvc(s,ev.currentTarget)},s.is_active?'Hide karein':'Active karein'))))):msg('Abhi koi service nahi hai.'))}
+catch(e){fail(box,e,loadServ)}}
+async function toggleSvc(s,btn){const hide=s.is_active;
+if(!confirm(hide?`"${s.name}" ko hide karna hai? Customers ko ye service aur is service ke professionals nahi dikhenge.`:`"${s.name}" ko dobara active karna hai?`))return;btn.disabled=true;
+try{await api.adminUpdateService(s.id,{is_active:!hide});toast(`${s.name}: ${hide?'hidden':'active'}`);loadServ()}
+catch(e){if(e.status===401)return showLogin('Session khatam ho gaya. Dobara login karein.');toast(e.message);btn.disabled=false}}
+function openSvc(s){editing=s||null;$('#svt').textContent=s?'Service edit karein':'Naya service';$('#svf').reset();$$('#svf .er').forEach(e=>e.textContent='');$('#sverr').hidden=true;
+$('#sva').hidden=!s;if(s){$('#svn').value=s.name;$('#svp').value=s.starting_price;$('#svi').value=s.icon||'';$('#svd').value=s.description||'';$('#svact').checked=!!s.is_active}
+$('#svm').hidden=false;setTimeout(()=>$('#svn').focus(),30)}
+const closeSvc=()=>{$('#svm').hidden=true};
+$('#svnew').addEventListener('click',()=>openSvc(null));$('#svc').addEventListener('click',closeSvc);
+$('#svm').addEventListener('click',e=>{if(e.target.id==='svm')closeSvc()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSvc()});
+$('#svf').addEventListener('submit',async ev=>{ev.preventDefault();const n=$('#svn'),p=$('#svp'),er=$('#sverr');er.hidden=true;
+const nameBad=n.value.trim().length<2?'Service ka naam likhein.':'',price=Number(p.value),priceBad=p.value===''||!(price>=0&&price<=100000)?'Price 0 se 100000 ke beech likhein.':'';
+bad(n,nameBad);bad(p,priceBad);if(nameBad||priceBad)return;
+const body={name:n.value.trim(),starting_price:price,icon:$('#svi').value.trim(),description:$('#svd').value.trim()};
+if(editing)body.is_active=$('#svact').checked;
+const b=$('#svs');b.disabled=true;
+try{if(editing)await api.adminUpdateService(editing.id,body);else await api.adminCreateService(body);
+closeSvc();toast(editing?'Service update ho gayi':'Service jod di gayi');loadServ()}
+catch(e){if(e.status===401){closeSvc();return showLogin('Session khatam ho gaya. Dobara login karein.')}er.textContent=e.message;er.hidden=false}
+finally{b.disabled=false}});
+
+/* ---------- start: only show the app if the saved token really belongs to an admin ---------- */
+(async()=>{
+if(!api.isLoggedIn()){showLogin();return}
+try{const d=await api.me();if(d.user.role==='admin')showApp(d.user);else{api.logout();showLogin()}}
+catch(e){showLogin(e.status===403?e.message:'')}})();
+})();
+</script>
+</body>
+</html>
